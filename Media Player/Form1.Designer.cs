@@ -33,6 +33,9 @@
             userBar = new ToolStrip();
             fileToolStripMenuItem = new ToolStripDropDownButton();
             addMusicsToolStripMenuItem = new ToolStripMenuItem();
+            viewToolStripMenuItem = new ToolStripDropDownButton();
+            showLyricsMenuItem = new ToolStripMenuItem();
+            showAlbumArtMenuItem = new ToolStripMenuItem();
             listToolStripMenuItem = new ToolStripDropDownButton();
             RescanMenuItem = new ToolStripMenuItem();
             ClearListItem = new ToolStripMenuItem();
@@ -74,7 +77,7 @@
             // userBar
             // 
             userBar.ImageScalingSize = new Size(20, 20);
-            userBar.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, listToolStripMenuItem });
+            userBar.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, listToolStripMenuItem });
             userBar.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             userBar.Location = new Point(0, 0);
             userBar.Name = "userBar";
@@ -97,6 +100,32 @@
             addMusicsToolStripMenuItem.Name = "addMusicsToolStripMenuItem";
             addMusicsToolStripMenuItem.Size = new Size(162, 26);
             addMusicsToolStripMenuItem.Text = "Add Music";
+            // 
+            // viewToolStripMenuItem
+            // 
+            viewToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showLyricsMenuItem, showAlbumArtMenuItem });
+            viewToolStripMenuItem.Image = (Image)resources.GetObject("viewToolStripMenuItem.Image");
+            viewToolStripMenuItem.ImageTransparentColor = Color.Magenta;
+            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            viewToolStripMenuItem.Size = new Size(55, 24);
+            viewToolStripMenuItem.Text = "View";
+            // 
+            // showLyricsMenuItem
+            // 
+            showLyricsMenuItem.Name = "showLyricsMenuItem";
+            showLyricsMenuItem.Size = new Size(224, 26);
+            showLyricsMenuItem.Text = "Show Lyrics";
+            showLyricsMenuItem.Click += showLyricsMenuItem_Click;
+            // 
+            // showAlbumArtMenuItem
+            // 
+            showAlbumArtMenuItem.Checked = true;
+            showAlbumArtMenuItem.CheckState = CheckState.Checked;
+            showAlbumArtMenuItem.Name = "showAlbumArtMenuItem";
+            showAlbumArtMenuItem.Size = new Size(224, 26);
+            showAlbumArtMenuItem.Text = "Show Album Art";
+            showAlbumArtMenuItem.Click += showAlbumArtMenuItem_Click;
             // 
             // listToolStripMenuItem
             // 
@@ -139,6 +168,7 @@
             PlayStop.TabIndex = 1;
             PlayStop.Text = "Play/Stop";
             PlayStop.UseVisualStyleBackColor = true;
+            PlayStop.Click += PlayStop_Click;
             // 
             // skip
             // 
@@ -182,6 +212,7 @@
             // 
             // musicListView
             // 
+            musicListView.Alignment = ListViewAlignment.Left;
             musicListView.AllowColumnReorder = true;
             musicListView.AllowDrop = true;
             musicListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
@@ -460,5 +491,8 @@
         private ToolStripButton editPlaylistButton;
         private ContextMenuStrip rightClickMenu;
         private ToolStripMenuItem rightClickRemoveButton;
+        private ToolStripDropDownButton viewToolStripMenuItem;
+        private ToolStripMenuItem showLyricsMenuItem;
+        private ToolStripMenuItem showAlbumArtMenuItem;
     }
 }
