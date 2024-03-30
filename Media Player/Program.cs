@@ -1,4 +1,6 @@
-namespace Media_Player
+using Khi_Player;
+
+namespace Khi_Player
 {
     internal static class Program
     {

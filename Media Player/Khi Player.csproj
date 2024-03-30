@@ -3,16 +3,49 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <RootNamespace>Media_Player</RootNamespace>
+    <RootNamespace>Khi_Player</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageIcon>Khi Player Icon.png</PackageIcon>
+    <Title>Khi Player</Title>
+    <ApplicationIcon>Khi-Player-Icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Audio Info.cs" />
+    <Compile Remove="Audio Info.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Audio Info.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Khi Player Icon.png" />
+    <None Remove="Resources\Khi Player.png" />
+    <None Remove="Resources\Khi-Player-Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Khi-Player-Icon.ico" />
+    <EmbeddedResource Include="Resources\Khi Player.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Khi-Player-Icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="TagLibSharp" Version="2.3.0" />
     <PackageReference Include="WindowsAPICodePackShell" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Khi Player Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
