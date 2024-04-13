@@ -10,6 +10,15 @@
     <PackageIcon>Khi Player Icon.png</PackageIcon>
     <Title>Khi Player</Title>
     <ApplicationIcon>Khi-Player-Icon.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,30 +31,48 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Khi Player Icon.png" />
+    <None Remove="app.manifest" />
+    <None Remove="Resources\Khi Player Thumbnail.bmp" />
     <None Remove="Resources\Khi Player.png" />
     <None Remove="Resources\Khi-Player-Icon.ico" />
+    <None Remove="Resources\Loop Dark Mode.png" />
+    <None Remove="Resources\Loop Single Dark Mode.png" />
+    <None Remove="Resources\Loop Single Light Mode.png" />
+    <None Remove="Resources\loop.png" />
+    <None Remove="Resources\MusicArt-NoCover.png" />
+    <None Remove="Resources\Play-Pause  Dark Mode.png" />
+    <None Remove="Resources\Play-Pause.png" />
+    <None Remove="Resources\Previous Dark Mode.png" />
+    <None Remove="Resources\Previous.png" />
+    <None Remove="Resources\Skip Dark Mode.png" />
+    <None Remove="Resources\Skip.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Khi-Player-Icon.ico" />
+    <EmbeddedResource Include="Resources\Khi Player Thumbnail.bmp" />
     <EmbeddedResource Include="Resources\Khi Player.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Khi-Player-Icon.ico" />
+    <EmbeddedResource Include="Resources\Loop Dark Mode.png" />
+    <EmbeddedResource Include="Resources\Loop Single Dark Mode.png" />
+    <EmbeddedResource Include="Resources\Loop Single Light Mode.png" />
+    <EmbeddedResource Include="Resources\loop.png" />
+    <EmbeddedResource Include="Resources\MusicArt-NoCover.png" />
+    <EmbeddedResource Include="Resources\Play-Pause  Dark Mode.png" />
+    <EmbeddedResource Include="Resources\Play-Pause.png" />
+    <EmbeddedResource Include="Resources\Previous Dark Mode.png" />
+    <EmbeddedResource Include="Resources\Previous.png" />
+    <EmbeddedResource Include="Resources\Skip Dark Mode.png" />
+    <EmbeddedResource Include="Resources\Skip.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="TagLibSharp" Version="2.3.0" />
     <PackageReference Include="WindowsAPICodePackShell" Version="8.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Khi Player Icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>
