@@ -97,6 +97,7 @@
             songSeekTimer = new System.Windows.Forms.Timer(components);
             MemoryManageTimer = new System.Windows.Forms.Timer(components);
             searchMusicListView = new TextBox();
+            toggleShuffle = new Button();
             userBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             rightClickMenu.SuspendLayout();
@@ -231,34 +232,34 @@
             // 
             SortListMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortListTitleMenuItem, sortListArtistMenuItem, sortListAlbumMenuItem });
             SortListMenuItem.Name = "SortListMenuItem";
-            SortListMenuItem.Size = new Size(180, 22);
+            SortListMenuItem.Size = new Size(170, 22);
             SortListMenuItem.Text = "Sort";
             // 
             // sortListTitleMenuItem
             // 
             sortListTitleMenuItem.Name = "sortListTitleMenuItem";
-            sortListTitleMenuItem.Size = new Size(180, 22);
+            sortListTitleMenuItem.Size = new Size(150, 22);
             sortListTitleMenuItem.Text = "Sort By Title";
             sortListTitleMenuItem.Click += sortListTitleMenuItem_Click;
             // 
             // sortListArtistMenuItem
             // 
             sortListArtistMenuItem.Name = "sortListArtistMenuItem";
-            sortListArtistMenuItem.Size = new Size(180, 22);
+            sortListArtistMenuItem.Size = new Size(150, 22);
             sortListArtistMenuItem.Text = "Sort By Artist";
             sortListArtistMenuItem.Click += sortListArtistMenuItem_Click;
             // 
             // sortListAlbumMenuItem
             // 
             sortListAlbumMenuItem.Name = "sortListAlbumMenuItem";
-            sortListAlbumMenuItem.Size = new Size(180, 22);
+            sortListAlbumMenuItem.Size = new Size(150, 22);
             sortListAlbumMenuItem.Text = "Sort By Album";
             sortListAlbumMenuItem.Click += sortListAlbumMenuItem_Click;
             // 
             // RescanMenuItem
             // 
             RescanMenuItem.Name = "RescanMenuItem";
-            RescanMenuItem.Size = new Size(180, 22);
+            RescanMenuItem.Size = new Size(170, 22);
             RescanMenuItem.Text = "Rescan and Check";
             RescanMenuItem.ToolTipText = "Scans Database for Duplicates and Reloads it";
             RescanMenuItem.Click += RescanMenuItem_Click;
@@ -266,7 +267,7 @@
             // ClearListItem
             // 
             ClearListItem.Name = "ClearListItem";
-            ClearListItem.Size = new Size(180, 22);
+            ClearListItem.Size = new Size(170, 22);
             ClearListItem.Text = "Clear List";
             ClearListItem.ToolTipText = "Clears All Songs List";
             ClearListItem.Click += ClearListItem_Click;
@@ -729,6 +730,7 @@
             // 
             musicControlBar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             musicControlBar.BackColor = SystemColors.Window;
+            musicControlBar.Controls.Add(toggleShuffle);
             musicControlBar.Controls.Add(volumeLabel);
             musicControlBar.Controls.Add(button1);
             musicControlBar.Controls.Add(songLengthLabel);
@@ -856,6 +858,22 @@
             searchMusicListView.KeyDown += searchMusicListView_KeyDown;
             searchMusicListView.KeyPress += searchMusicListView_KeyPress;
             // 
+            // toggleShuffle
+            // 
+            toggleShuffle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            toggleShuffle.BackColor = SystemColors.Window;
+            toggleShuffle.BackgroundImage = Properties.Resources.loop;
+            toggleShuffle.BackgroundImageLayout = ImageLayout.Zoom;
+            toggleShuffle.FlatAppearance.BorderColor = SystemColors.Highlight;
+            toggleShuffle.FlatAppearance.BorderSize = 0;
+            toggleShuffle.FlatStyle = FlatStyle.Flat;
+            toggleShuffle.Location = new Point(688, 21);
+            toggleShuffle.Margin = new Padding(2, 3, 2, 3);
+            toggleShuffle.Name = "toggleShuffle";
+            toggleShuffle.Size = new Size(35, 30);
+            toggleShuffle.TabIndex = 14;
+            toggleShuffle.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -967,5 +985,6 @@
         private ToolStripMenuItem sortListTitleMenuItem;
         private ToolStripMenuItem sortListArtistMenuItem;
         private ToolStripMenuItem sortListAlbumMenuItem;
+        private Button toggleShuffle;
     }
 }

@@ -4063,8 +4063,9 @@ namespace Khi_Player
 
         private void previous_Click(object sender, EventArgs e)
         {
-
+            songSeekTimer.Enabled = false;
             PlayBackFunction.MusicPlayBackControl(PlayBackFunction.Controls.Previous);
+            songSeekTimer.Enabled = true;
             // ***lyricsTextBox.Text = musicListView.SelectedItems[(int)selectedMusicsQue - 2].SubItems[6].Text;
 
             if (PlayBackFunction.mediaPlayer.PlaybackState == PlaybackState.Playing || PlayBackFunction.mediaPlayer.PlaybackState == PlaybackState.Paused)
@@ -4869,12 +4870,15 @@ namespace Khi_Player
 
                     searchMusicListView.AutoCompleteCustomSource.Clear();
 
-                    foreach (string[]? music in playlist1MusicInfo)
+                    List<string?> tempTips = new List<string?>();
+                    foreach (string[]? music in allMusicInfo)
                     {
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[0]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[1]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[2]);
+                        tempTips.Add(music[0]);
+                        tempTips.Add(music[1]);
+                        tempTips.Add(music[2]);
                     }
+                    searchMusicListView.AutoCompleteCustomSource.AddRange(tempTips.ToArray());
+                    tempTips = null;
                     //musicListView.EndUpdate();
                     CurrentPlaylist = Playlists.playlist1;
                     listUpdated = true;
@@ -5127,13 +5131,15 @@ namespace Khi_Player
 
             searchMusicListView.AutoCompleteCustomSource.Clear();
 
-
+            List<string?> tempTips = new List<string?>();
             foreach (string[]? music in allMusicInfo)
             {
-                searchMusicListView.AutoCompleteCustomSource.Add(music[0]);
-                searchMusicListView.AutoCompleteCustomSource.Add(music[1]);
-                searchMusicListView.AutoCompleteCustomSource.Add(music[2]);
+                tempTips.Add(music[0]);
+                tempTips.Add(music[1]);
+                tempTips.Add(music[2]);
             }
+            searchMusicListView.AutoCompleteCustomSource.AddRange(tempTips.ToArray());
+            tempTips = null;
 
             GC.Collect();
 
@@ -5309,12 +5315,15 @@ namespace Khi_Player
 
                     searchMusicListView.AutoCompleteCustomSource.Clear();
 
-                    foreach (string[]? music in playlist2MusicInfo)
+                    List<string?> tempTips = new List<string?>();
+                    foreach (string[]? music in allMusicInfo)
                     {
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[0]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[1]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[2]);
+                        tempTips.Add(music[0]);
+                        tempTips.Add(music[1]);
+                        tempTips.Add(music[2]);
                     }
+                    searchMusicListView.AutoCompleteCustomSource.AddRange(tempTips.ToArray());
+                    tempTips = null;
                     //musicListView.EndUpdate();
                     CurrentPlaylist = Playlists.playlist2;
                     listUpdated = true;
@@ -5338,12 +5347,15 @@ namespace Khi_Player
 
                     searchMusicListView.AutoCompleteCustomSource.Clear();
 
-                    foreach (string[]? music in playlist3MusicInfo)
+                    List<string?> tempTips = new List<string?>();
+                    foreach (string[]? music in allMusicInfo)
                     {
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[0]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[1]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[2]);
+                        tempTips.Add(music[0]);
+                        tempTips.Add(music[1]);
+                        tempTips.Add(music[2]);
                     }
+                    searchMusicListView.AutoCompleteCustomSource.AddRange(tempTips.ToArray());
+                    tempTips = null;
                     //musicListView.EndUpdate();
                     CurrentPlaylist = Playlists.playlist3;
                     listUpdated = true;
@@ -5367,12 +5379,15 @@ namespace Khi_Player
 
                     searchMusicListView.AutoCompleteCustomSource.Clear();
 
-                    foreach (string[]? music in playlist4MusicInfo)
+                    List<string?> tempTips = new List<string?>();
+                    foreach (string[]? music in allMusicInfo)
                     {
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[0]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[1]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[2]);
+                        tempTips.Add(music[0]);
+                        tempTips.Add(music[1]);
+                        tempTips.Add(music[2]);
                     }
+                    searchMusicListView.AutoCompleteCustomSource.AddRange(tempTips.ToArray());
+                    tempTips = null;
                     //musicListView.EndUpdate();
                     CurrentPlaylist = Playlists.playlist4;
                     listUpdated = true;
@@ -5396,12 +5411,15 @@ namespace Khi_Player
 
                     searchMusicListView.AutoCompleteCustomSource.Clear();
 
-                    foreach (string[]? music in playlist5MusicInfo)
+                    List<string?> tempTips = new List<string?>();
+                    foreach (string[]? music in allMusicInfo)
                     {
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[0]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[1]);
-                        searchMusicListView.AutoCompleteCustomSource.Add(music[2]);
+                        tempTips.Add(music[0]);
+                        tempTips.Add(music[1]);
+                        tempTips.Add(music[2]);
                     }
+                    searchMusicListView.AutoCompleteCustomSource.AddRange(tempTips.ToArray());
+                    tempTips = null;
                     //musicListView.EndUpdate();
                     CurrentPlaylist = Playlists.playlist5;
                     listUpdated = true;

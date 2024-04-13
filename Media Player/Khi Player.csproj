@@ -44,6 +44,8 @@
     <None Remove="Resources\Play-Pause.png" />
     <None Remove="Resources\Previous Dark Mode.png" />
     <None Remove="Resources\Previous.png" />
+    <None Remove="Resources\Shuffle Dark Mode.png" />
+    <None Remove="Resources\Shuffle Light Mode.png" />
     <None Remove="Resources\Skip Dark Mode.png" />
     <None Remove="Resources\Skip.png" />
   </ItemGroup>
@@ -65,6 +67,8 @@
     <EmbeddedResource Include="Resources\Play-Pause.png" />
     <EmbeddedResource Include="Resources\Previous Dark Mode.png" />
     <EmbeddedResource Include="Resources\Previous.png" />
+    <EmbeddedResource Include="Resources\Shuffle Dark Mode.png" />
+    <EmbeddedResource Include="Resources\Shuffle Light Mode.png" />
     <EmbeddedResource Include="Resources\Skip Dark Mode.png" />
     <EmbeddedResource Include="Resources\Skip.png" />
   </ItemGroup>
