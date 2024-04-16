@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <None Remove="app.manifest" />
+    <None Remove="Khi-Player-Icon %281%29.ico" />
     <None Remove="Resources\Khi Player Thumbnail.bmp" />
     <None Remove="Resources\Khi Player.png" />
     <None Remove="Resources\Khi-Player-Icon.ico" />
@@ -48,6 +49,12 @@
     <None Remove="Resources\Shuffle Light Mode.png" />
     <None Remove="Resources\Skip Dark Mode.png" />
     <None Remove="Resources\Skip.png" />
+    <None Remove="Resources\Stop Dark Mode.png" />
+    <None Remove="Resources\Stop Light Mode.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Khi-Player-Icon (1).ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +78,8 @@
     <EmbeddedResource Include="Resources\Shuffle Light Mode.png" />
     <EmbeddedResource Include="Resources\Skip Dark Mode.png" />
     <EmbeddedResource Include="Resources\Skip.png" />
+    <EmbeddedResource Include="Resources\Stop Dark Mode.png" />
+    <EmbeddedResource Include="Resources\Stop Light Mode.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -183,6 +183,26 @@ namespace Khi_Player.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Shuffle_Dark_Mode {
+            get {
+                object obj = ResourceManager.GetObject("Shuffle_Dark_Mode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Shuffle_Light_Mode {
+            get {
+                object obj = ResourceManager.GetObject("Shuffle_Light_Mode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Skip {
             get {
                 object obj = ResourceManager.GetObject("Skip", resourceCulture);
@@ -196,6 +216,26 @@ namespace Khi_Player.Properties {
         internal static System.Drawing.Bitmap Skip_Dark_Mode {
             get {
                 object obj = ResourceManager.GetObject("Skip_Dark_Mode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stop_Dark_Mode {
+            get {
+                object obj = ResourceManager.GetObject("Stop_Dark_Mode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stop_Light_Mode {
+            get {
+                object obj = ResourceManager.GetObject("Stop_Light_Mode", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

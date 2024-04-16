@@ -59,6 +59,7 @@
             musicArtist = new ColumnHeader();
             musicAlbum = new ColumnHeader();
             rightClickMenu = new ContextMenuStrip(components);
+            playMenuItem = new ToolStripMenuItem();
             showItemInfoButton = new ToolStripMenuItem();
             editItemTagsButton = new ToolStripMenuItem();
             removeItemButton = new ToolStripMenuItem();
@@ -87,6 +88,8 @@
             songTitleLabel = new Label();
             lyricsTextBox = new TextBox();
             musicControlBar = new Panel();
+            stopButton = new Button();
+            toggleShuffle = new Button();
             volumeLabel = new Label();
             songLengthLabel = new Label();
             currentTimeLabel = new Label();
@@ -97,7 +100,6 @@
             songSeekTimer = new System.Windows.Forms.Timer(components);
             MemoryManageTimer = new System.Windows.Forms.Timer(components);
             searchMusicListView = new TextBox();
-            toggleShuffle = new Button();
             userBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             rightClickMenu.SuspendLayout();
@@ -303,7 +305,7 @@
             skip.BackgroundImageLayout = ImageLayout.Zoom;
             skip.FlatAppearance.BorderSize = 0;
             skip.FlatStyle = FlatStyle.Flat;
-            skip.Location = new Point(91, 27);
+            skip.Location = new Point(137, 27);
             skip.Margin = new Padding(2, 3, 2, 3);
             skip.Name = "skip";
             skip.Size = new Size(32, 24);
@@ -346,7 +348,7 @@
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             button1.BackColor = SystemColors.Window;
-            button1.Location = new Point(172, 28);
+            button1.Location = new Point(274, 26);
             button1.Margin = new Padding(2, 3, 2, 3);
             button1.Name = "button1";
             button1.Size = new Size(47, 24);
@@ -413,11 +415,19 @@
             // 
             rightClickMenu.BackColor = Color.FromArgb(41, 41, 41);
             rightClickMenu.ImageScalingSize = new Size(20, 20);
-            rightClickMenu.Items.AddRange(new ToolStripItem[] { showItemInfoButton, editItemTagsButton, removeItemButton, addToPlaylistButton });
+            rightClickMenu.Items.AddRange(new ToolStripItem[] { playMenuItem, showItemInfoButton, editItemTagsButton, removeItemButton, addToPlaylistButton });
             rightClickMenu.Name = "contextMenuStrip1";
-            rightClickMenu.Size = new Size(152, 92);
+            rightClickMenu.RenderMode = ToolStripRenderMode.System;
+            rightClickMenu.Size = new Size(152, 114);
             rightClickMenu.Closed += rightClickMenu_Closed;
             rightClickMenu.Opening += rightClickMenu_Opening;
+            // 
+            // playMenuItem
+            // 
+            playMenuItem.ForeColor = Color.White;
+            playMenuItem.Name = "playMenuItem";
+            playMenuItem.Size = new Size(151, 22);
+            playMenuItem.Text = "Play";
             // 
             // showItemInfoButton
             // 
@@ -444,6 +454,7 @@
             // 
             // addToPlaylistButton
             // 
+            addToPlaylistButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
             addToPlaylistButton.DropDownItems.AddRange(new ToolStripItem[] { addToPlaylist1, addToPlaylist2, addToPlaylist3, addToPlaylist4, addToPlaylist5 });
             addToPlaylistButton.Enabled = false;
             addToPlaylistButton.Name = "addToPlaylistButton";
@@ -730,6 +741,7 @@
             // 
             musicControlBar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             musicControlBar.BackColor = SystemColors.Window;
+            musicControlBar.Controls.Add(stopButton);
             musicControlBar.Controls.Add(toggleShuffle);
             musicControlBar.Controls.Add(volumeLabel);
             musicControlBar.Controls.Add(button1);
@@ -748,6 +760,39 @@
             musicControlBar.Name = "musicControlBar";
             musicControlBar.Size = new Size(946, 58);
             musicControlBar.TabIndex = 12;
+            // 
+            // stopButton
+            // 
+            stopButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            stopButton.BackColor = SystemColors.Window;
+            stopButton.BackgroundImage = Properties.Resources.Stop_Light_Mode;
+            stopButton.BackgroundImageLayout = ImageLayout.Zoom;
+            stopButton.FlatAppearance.BorderSize = 0;
+            stopButton.FlatStyle = FlatStyle.Flat;
+            stopButton.Location = new Point(91, 26);
+            stopButton.Margin = new Padding(2, 3, 2, 3);
+            stopButton.Name = "stopButton";
+            stopButton.Size = new Size(32, 24);
+            stopButton.TabIndex = 15;
+            stopButton.UseVisualStyleBackColor = false;
+            stopButton.Click += stopButton_Click;
+            // 
+            // toggleShuffle
+            // 
+            toggleShuffle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            toggleShuffle.BackColor = SystemColors.Window;
+            toggleShuffle.BackgroundImage = Properties.Resources.Shuffle_Light_Mode;
+            toggleShuffle.BackgroundImageLayout = ImageLayout.Zoom;
+            toggleShuffle.FlatAppearance.BorderColor = SystemColors.Highlight;
+            toggleShuffle.FlatAppearance.BorderSize = 0;
+            toggleShuffle.FlatStyle = FlatStyle.Flat;
+            toggleShuffle.Location = new Point(688, 21);
+            toggleShuffle.Margin = new Padding(2, 3, 2, 3);
+            toggleShuffle.Name = "toggleShuffle";
+            toggleShuffle.Size = new Size(35, 30);
+            toggleShuffle.TabIndex = 14;
+            toggleShuffle.UseVisualStyleBackColor = false;
+            toggleShuffle.Click += toggleShuffle_Click;
             // 
             // volumeLabel
             // 
@@ -817,10 +862,15 @@
             // 
             seekBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             seekBar.AutoSize = false;
+            seekBar.CausesValidation = false;
+            seekBar.Enabled = false;
+            seekBar.LargeChange = 0;
             seekBar.Location = new Point(46, 2);
             seekBar.Margin = new Padding(8, 2, 8, 2);
+            seekBar.Maximum = 0;
             seekBar.Name = "seekBar";
             seekBar.Size = new Size(840, 19);
+            seekBar.SmallChange = 0;
             seekBar.TabIndex = 12;
             seekBar.TickStyle = TickStyle.None;
             seekBar.Scroll += seekBar_Scroll;
@@ -835,7 +885,7 @@
             // 
             // songSeekTimer
             // 
-            songSeekTimer.Interval = 900;
+            songSeekTimer.Interval = 990;
             songSeekTimer.Tick += songSeekTimer_Tick;
             // 
             // MemoryManageTimer
@@ -857,22 +907,6 @@
             searchMusicListView.TextChanged += searchMusicListView_TextChanged;
             searchMusicListView.KeyDown += searchMusicListView_KeyDown;
             searchMusicListView.KeyPress += searchMusicListView_KeyPress;
-            // 
-            // toggleShuffle
-            // 
-            toggleShuffle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            toggleShuffle.BackColor = SystemColors.Window;
-            toggleShuffle.BackgroundImage = Properties.Resources.loop;
-            toggleShuffle.BackgroundImageLayout = ImageLayout.Zoom;
-            toggleShuffle.FlatAppearance.BorderColor = SystemColors.Highlight;
-            toggleShuffle.FlatAppearance.BorderSize = 0;
-            toggleShuffle.FlatStyle = FlatStyle.Flat;
-            toggleShuffle.Location = new Point(688, 21);
-            toggleShuffle.Margin = new Padding(2, 3, 2, 3);
-            toggleShuffle.Name = "toggleShuffle";
-            toggleShuffle.Size = new Size(35, 30);
-            toggleShuffle.TabIndex = 14;
-            toggleShuffle.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -963,7 +997,6 @@
         private ToolStripMenuItem addFolderToolStripMenuItem;
         private ToolStripMenuItem darkModeMenuItem;
         public TextBox lyricsTextBox;
-        private ToolStripMenuItem addToPlaylistButton;
         private ToolStripMenuItem addToPlaylist1;
         private ToolStripMenuItem addToPlaylist2;
         private ToolStripMenuItem addToPlaylist3;
@@ -986,5 +1019,9 @@
         private ToolStripMenuItem sortListArtistMenuItem;
         private ToolStripMenuItem sortListAlbumMenuItem;
         private Button toggleShuffle;
+        public Button stopButton;
+        public ToolStripMenuItem playMenuItem;
+        public ToolStripMenuItem addToPlaylistButton;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
