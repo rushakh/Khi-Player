@@ -71,6 +71,8 @@
             addToPlaylist5 = new ToolStripMenuItem();
             artListImageList = new ImageList(components);
             playlistToolbar = new ToolStrip();
+            playlistIdentifierLabel = new ToolStripLabel();
+            currentPlaylistLabel = new ToolStripLabel();
             playlistLabel = new ToolStripLabel();
             allSongsPlaylist = new ToolStripButton();
             playlist1Button = new ToolStripButton();
@@ -521,7 +523,7 @@
             playlistToolbar.Dock = DockStyle.None;
             playlistToolbar.GripStyle = ToolStripGripStyle.Hidden;
             playlistToolbar.ImageScalingSize = new Size(20, 20);
-            playlistToolbar.Items.AddRange(new ToolStripItem[] { playlistLabel, allSongsPlaylist, playlist1Button, playlist2Button, playlist3Button, playlist4Button, playlist5Button, renameTextBox, addPlaylistButton, editPlaylistButton });
+            playlistToolbar.Items.AddRange(new ToolStripItem[] { playlistIdentifierLabel, currentPlaylistLabel, playlistLabel, allSongsPlaylist, playlist1Button, playlist2Button, playlist3Button, playlist4Button, playlist5Button, renameTextBox, addPlaylistButton, editPlaylistButton });
             playlistToolbar.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             playlistToolbar.Location = new Point(0, 20);
             playlistToolbar.Name = "playlistToolbar";
@@ -532,13 +534,29 @@
             playlistToolbar.TabIndex = 10;
             playlistToolbar.Text = "Playlists";
             // 
+            // playlistIdentifierLabel
+            // 
+            playlistIdentifierLabel.AutoSize = false;
+            playlistIdentifierLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            playlistIdentifierLabel.Name = "playlistIdentifierLabel";
+            playlistIdentifierLabel.Size = new Size(90, 25);
+            playlistIdentifierLabel.Text = "Current Playlist:";
+            // 
+            // currentPlaylistLabel
+            // 
+            currentPlaylistLabel.AutoSize = false;
+            currentPlaylistLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            currentPlaylistLabel.Name = "currentPlaylistLabel";
+            currentPlaylistLabel.Size = new Size(90, 25);
+            currentPlaylistLabel.Text = "All Songs";
+            // 
             // playlistLabel
             // 
             playlistLabel.AutoSize = false;
             playlistLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
             playlistLabel.Image = (Image)resources.GetObject("playlistLabel.Image");
             playlistLabel.ImageTransparentColor = Color.Magenta;
-            playlistLabel.Margin = new Padding(0, 1, 0, 20);
+            playlistLabel.Margin = new Padding(0, 20, 0, 20);
             playlistLabel.Name = "playlistLabel";
             playlistLabel.Size = new Size(90, 25);
             playlistLabel.Text = "Playlists:";
@@ -639,11 +657,14 @@
             // editPlaylistButton
             // 
             editPlaylistButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            editPlaylistButton.Enabled = false;
             editPlaylistButton.Image = (Image)resources.GetObject("editPlaylistButton.Image");
             editPlaylistButton.ImageTransparentColor = Color.Magenta;
             editPlaylistButton.Name = "editPlaylistButton";
             editPlaylistButton.Size = new Size(90, 19);
             editPlaylistButton.Text = "Edit Playlist";
+            editPlaylistButton.Visible = false;
+            editPlaylistButton.Click += editPlaylistButton_Click;
             // 
             // mediaPlayerPanel
             // 
@@ -669,7 +690,7 @@
             borderLabel.BackColor = SystemColors.Window;
             borderLabel.FlatStyle = FlatStyle.Flat;
             borderLabel.Font = new Font("Segoe UI", 6F, FontStyle.Bold);
-            borderLabel.Location = new Point(98, 413);
+            borderLabel.Location = new Point(92, 413);
             borderLabel.Margin = new Padding(0);
             borderLabel.Name = "borderLabel";
             borderLabel.Size = new Size(273, 8);
@@ -686,7 +707,7 @@
             songAlbumLabel.Location = new Point(1, 489);
             songAlbumLabel.Margin = new Padding(1);
             songAlbumLabel.Name = "songAlbumLabel";
-            songAlbumLabel.Padding = new Padding(1, 0, 1, 0);
+            songAlbumLabel.Padding = new Padding(1, 0, 8, 0);
             songAlbumLabel.Size = new Size(472, 35);
             songAlbumLabel.TabIndex = 16;
             songAlbumLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -699,7 +720,7 @@
             songArtistLabel.Location = new Point(1, 455);
             songArtistLabel.Margin = new Padding(1);
             songArtistLabel.Name = "songArtistLabel";
-            songArtistLabel.Padding = new Padding(1, 0, 1, 0);
+            songArtistLabel.Padding = new Padding(1, 0, 8, 0);
             songArtistLabel.Size = new Size(472, 32);
             songArtistLabel.TabIndex = 15;
             songArtistLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -712,7 +733,7 @@
             songTitleLabel.Location = new Point(1, 422);
             songTitleLabel.Margin = new Padding(1);
             songTitleLabel.Name = "songTitleLabel";
-            songTitleLabel.Padding = new Padding(1, 0, 1, 0);
+            songTitleLabel.Padding = new Padding(1, 0, 8, 0);
             songTitleLabel.Size = new Size(472, 32);
             songTitleLabel.TabIndex = 14;
             songTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -929,6 +950,7 @@
             MinimumSize = new Size(962, 641);
             Name = "Form1";
             Text = "Khi Player";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             Resize += Form1_Resize;
             userBar.ResumeLayout(false);
@@ -1023,5 +1045,7 @@
         public ToolStripMenuItem playMenuItem;
         public ToolStripMenuItem addToPlaylistButton;
         private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripLabel playlistIdentifierLabel;
+        private ToolStripLabel currentPlaylistLabel;
     }
 }

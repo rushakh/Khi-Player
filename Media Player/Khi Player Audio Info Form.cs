@@ -18,10 +18,24 @@
         public Khi_Player_Audio_Info_Form(string? title, string? artist, string? album,
                                           string? trackNumber, string? genre, string? duration,
                                           string? bitrate, string? sampleRate, string? encoding, string? channel,
-                                          string? path, string? format, string? lyrics, Image? art)
+                                          string? path, string? format, string? lyrics, Image? art, bool darkMode)
         {
 
             InitializeComponent();
+
+            if (darkMode)
+            {
+                this.BackColor = Color.FromArgb(41, 41, 41);
+                this.ForeColor = Color.White;
+                foreach (Control cont in this.Controls)
+                {
+                    cont.BackColor = Color.FromArgb(41, 41, 41);
+                    cont.ForeColor = Color.White;
+
+                }
+                
+
+            }
 
             audioArtBox.Image = art;
             textBox1.Text = title;
