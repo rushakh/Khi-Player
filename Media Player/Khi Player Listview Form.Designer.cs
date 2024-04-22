@@ -64,22 +64,12 @@
             editItemTagsButton = new ToolStripMenuItem();
             removeItemButton = new ToolStripMenuItem();
             addToPlaylistButton = new ToolStripMenuItem();
-            addToPlaylist1 = new ToolStripMenuItem();
-            addToPlaylist2 = new ToolStripMenuItem();
-            addToPlaylist3 = new ToolStripMenuItem();
-            addToPlaylist4 = new ToolStripMenuItem();
-            addToPlaylist5 = new ToolStripMenuItem();
             artListImageList = new ImageList(components);
             playlistToolbar = new ToolStrip();
             playlistIdentifierLabel = new ToolStripLabel();
             currentPlaylistLabel = new ToolStripLabel();
             playlistLabel = new ToolStripLabel();
             allSongsPlaylist = new ToolStripButton();
-            playlist1Button = new ToolStripButton();
-            playlist2Button = new ToolStripButton();
-            playlist3Button = new ToolStripButton();
-            playlist4Button = new ToolStripButton();
-            playlist5Button = new ToolStripButton();
             renameTextBox = new ToolStripTextBox();
             addPlaylistButton = new ToolStripButton();
             editPlaylistButton = new ToolStripButton();
@@ -420,7 +410,7 @@
             rightClickMenu.Items.AddRange(new ToolStripItem[] { playMenuItem, showItemInfoButton, editItemTagsButton, removeItemButton, addToPlaylistButton });
             rightClickMenu.Name = "contextMenuStrip1";
             rightClickMenu.RenderMode = ToolStripRenderMode.System;
-            rightClickMenu.Size = new Size(152, 114);
+            rightClickMenu.Size = new Size(181, 136);
             rightClickMenu.Closed += rightClickMenu_Closed;
             rightClickMenu.Opening += rightClickMenu_Opening;
             // 
@@ -428,14 +418,14 @@
             // 
             playMenuItem.ForeColor = Color.White;
             playMenuItem.Name = "playMenuItem";
-            playMenuItem.Size = new Size(151, 22);
+            playMenuItem.Size = new Size(180, 22);
             playMenuItem.Text = "Play";
             // 
             // showItemInfoButton
             // 
             showItemInfoButton.Enabled = false;
             showItemInfoButton.Name = "showItemInfoButton";
-            showItemInfoButton.Size = new Size(151, 22);
+            showItemInfoButton.Size = new Size(180, 22);
             showItemInfoButton.Text = "Show Info";
             showItemInfoButton.Click += showItemInfoButton_Click;
             // 
@@ -443,71 +433,25 @@
             // 
             editItemTagsButton.Enabled = false;
             editItemTagsButton.Name = "editItemTagsButton";
-            editItemTagsButton.Size = new Size(151, 22);
+            editItemTagsButton.Size = new Size(180, 22);
             editItemTagsButton.Text = "Edit Tags";
             // 
             // removeItemButton
             // 
             removeItemButton.Enabled = false;
             removeItemButton.Name = "removeItemButton";
-            removeItemButton.Size = new Size(151, 22);
+            removeItemButton.Size = new Size(180, 22);
             removeItemButton.Text = "Remove";
             removeItemButton.Click += removeItemButton_Click;
             // 
             // addToPlaylistButton
             // 
             addToPlaylistButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            addToPlaylistButton.DropDownItems.AddRange(new ToolStripItem[] { addToPlaylist1, addToPlaylist2, addToPlaylist3, addToPlaylist4, addToPlaylist5 });
             addToPlaylistButton.Enabled = false;
             addToPlaylistButton.Name = "addToPlaylistButton";
-            addToPlaylistButton.Size = new Size(151, 22);
+            addToPlaylistButton.Size = new Size(180, 22);
             addToPlaylistButton.Text = "Add To Playlist";
             addToPlaylistButton.Visible = false;
-            // 
-            // addToPlaylist1
-            // 
-            addToPlaylist1.Enabled = false;
-            addToPlaylist1.Name = "addToPlaylist1";
-            addToPlaylist1.Size = new Size(120, 22);
-            addToPlaylist1.Text = "Playlist 1";
-            addToPlaylist1.Visible = false;
-            addToPlaylist1.Click += addToPlaylist1_Click;
-            // 
-            // addToPlaylist2
-            // 
-            addToPlaylist2.Enabled = false;
-            addToPlaylist2.Name = "addToPlaylist2";
-            addToPlaylist2.Size = new Size(120, 22);
-            addToPlaylist2.Text = "Playlist 2";
-            addToPlaylist2.Visible = false;
-            addToPlaylist2.Click += addToPlaylist2_Click;
-            // 
-            // addToPlaylist3
-            // 
-            addToPlaylist3.Enabled = false;
-            addToPlaylist3.Name = "addToPlaylist3";
-            addToPlaylist3.Size = new Size(120, 22);
-            addToPlaylist3.Text = "Playlist 3";
-            addToPlaylist3.Visible = false;
-            addToPlaylist3.Click += addToPlaylist3_Click;
-            // 
-            // addToPlaylist4
-            // 
-            addToPlaylist4.Enabled = false;
-            addToPlaylist4.Name = "addToPlaylist4";
-            addToPlaylist4.Size = new Size(120, 22);
-            addToPlaylist4.Text = "Playlist 4";
-            addToPlaylist4.Visible = false;
-            addToPlaylist4.Click += addToPlaylist4_Click;
-            // 
-            // addToPlaylist5
-            // 
-            addToPlaylist5.Enabled = false;
-            addToPlaylist5.Name = "addToPlaylist5";
-            addToPlaylist5.Size = new Size(120, 22);
-            addToPlaylist5.Text = "Playlist 5";
-            addToPlaylist5.Visible = false;
-            addToPlaylist5.Click += addToPlaylist5_Click;
             // 
             // artListImageList
             // 
@@ -523,7 +467,7 @@
             playlistToolbar.Dock = DockStyle.None;
             playlistToolbar.GripStyle = ToolStripGripStyle.Hidden;
             playlistToolbar.ImageScalingSize = new Size(20, 20);
-            playlistToolbar.Items.AddRange(new ToolStripItem[] { playlistIdentifierLabel, currentPlaylistLabel, playlistLabel, allSongsPlaylist, playlist1Button, playlist2Button, playlist3Button, playlist4Button, playlist5Button, renameTextBox, addPlaylistButton, editPlaylistButton });
+            playlistToolbar.Items.AddRange(new ToolStripItem[] { playlistIdentifierLabel, currentPlaylistLabel, playlistLabel, allSongsPlaylist, renameTextBox, addPlaylistButton, editPlaylistButton });
             playlistToolbar.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             playlistToolbar.Location = new Point(0, 20);
             playlistToolbar.Name = "playlistToolbar";
@@ -570,66 +514,6 @@
             allSongsPlaylist.Size = new Size(90, 19);
             allSongsPlaylist.Text = "All Songs";
             allSongsPlaylist.Click += allSongsPlaylist_Click;
-            // 
-            // playlist1Button
-            // 
-            playlist1Button.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            playlist1Button.Enabled = false;
-            playlist1Button.Image = (Image)resources.GetObject("playlist1Button.Image");
-            playlist1Button.ImageTransparentColor = Color.Magenta;
-            playlist1Button.Name = "playlist1Button";
-            playlist1Button.Size = new Size(90, 19);
-            playlist1Button.Text = "Playlist 1";
-            playlist1Button.Visible = false;
-            playlist1Button.Click += playlist1Button_Click;
-            // 
-            // playlist2Button
-            // 
-            playlist2Button.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            playlist2Button.Enabled = false;
-            playlist2Button.Image = (Image)resources.GetObject("playlist2Button.Image");
-            playlist2Button.ImageTransparentColor = Color.Magenta;
-            playlist2Button.Name = "playlist2Button";
-            playlist2Button.Size = new Size(90, 19);
-            playlist2Button.Text = "Playlist 2";
-            playlist2Button.Visible = false;
-            playlist2Button.Click += playlist2Button_Click;
-            // 
-            // playlist3Button
-            // 
-            playlist3Button.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            playlist3Button.Enabled = false;
-            playlist3Button.Image = (Image)resources.GetObject("playlist3Button.Image");
-            playlist3Button.ImageTransparentColor = Color.Magenta;
-            playlist3Button.Name = "playlist3Button";
-            playlist3Button.Size = new Size(90, 19);
-            playlist3Button.Text = "Playlist 3";
-            playlist3Button.Visible = false;
-            playlist3Button.Click += playlist3Button_Click;
-            // 
-            // playlist4Button
-            // 
-            playlist4Button.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            playlist4Button.Enabled = false;
-            playlist4Button.Image = (Image)resources.GetObject("playlist4Button.Image");
-            playlist4Button.ImageTransparentColor = Color.Magenta;
-            playlist4Button.Name = "playlist4Button";
-            playlist4Button.Size = new Size(90, 19);
-            playlist4Button.Text = "Playlist 4";
-            playlist4Button.Visible = false;
-            playlist4Button.Click += playlist4Button_Click;
-            // 
-            // playlist5Button
-            // 
-            playlist5Button.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            playlist5Button.Enabled = false;
-            playlist5Button.Image = (Image)resources.GetObject("playlist5Button.Image");
-            playlist5Button.ImageTransparentColor = Color.Magenta;
-            playlist5Button.Name = "playlist5Button";
-            playlist5Button.Size = new Size(90, 19);
-            playlist5Button.Text = "Playlist 5";
-            playlist5Button.Visible = false;
-            playlist5Button.Click += playlist5Button_Click;
             // 
             // renameTextBox
             // 
@@ -737,6 +621,7 @@
             songTitleLabel.Size = new Size(472, 32);
             songTitleLabel.TabIndex = 14;
             songTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
+            songTitleLabel.Click += songTitleLabel_Click;
             // 
             // lyricsTextBox
             // 
@@ -1019,20 +904,10 @@
         private ToolStripMenuItem addFolderToolStripMenuItem;
         private ToolStripMenuItem darkModeMenuItem;
         public TextBox lyricsTextBox;
-        private ToolStripMenuItem addToPlaylist1;
-        private ToolStripMenuItem addToPlaylist2;
-        private ToolStripMenuItem addToPlaylist3;
-        private ToolStripMenuItem addToPlaylist4;
-        private ToolStripMenuItem addToPlaylist5;
         private ToolStripMenuItem showTileViewMenuItem;
         public ToolStrip playlistToolbar;
         public ToolStripButton allSongsPlaylist;
         public ToolStripTextBox renameTextBox;
-        public ToolStripButton playlist1Button;
-        public ToolStripButton playlist2Button;
-        public ToolStripButton playlist3Button;
-        public ToolStripButton playlist4Button;
-        public ToolStripButton playlist5Button;
         public ToolStripButton editPlaylistButton;
         public ToolStrip userBar;
         public TextBox searchMusicListView;

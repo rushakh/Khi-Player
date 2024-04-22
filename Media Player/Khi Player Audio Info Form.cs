@@ -33,7 +33,13 @@
                     cont.ForeColor = Color.White;
 
                 }
-                
+                foreach (Control cont in panel1.Controls)
+                {
+                    cont.BackColor = Color.FromArgb(41, 41, 41);
+                    cont.ForeColor = Color.White;
+
+                }
+
 
             }
 

@@ -74,18 +74,6 @@ namespace Khi_Player {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LastViewedPlaylist {
-            get {
-                return ((int)(this["LastViewedPlaylist"]));
-            }
-            set {
-                this["LastViewedPlaylist"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SortOrder {
             get {
                 return ((int)(this["SortOrder"]));
