@@ -6321,8 +6321,34 @@ namespace Khi_Player
 
         }
 
-        private void songTitleLabel_Click(object sender, EventArgs e)
+        private async void songTitleLabel_Click(object sender, EventArgs e)
         {
+            var tempPlaylist = PlayList.GetCurrentPlaylist();
+            var playlist = tempPlaylist.ToList();
+            int index = 0;
+
+            await Task.Run(() =>
+            {
+                bool notFoundInCurrentPlaylist = false;
+                int i = 0;
+                foreach (var song in playlist)
+                {
+                    if (song[3] == currentlyPlayingSongInfo[3])
+                    {
+                        index = i;
+                        notFoundInCurrentPlaylist = false;
+                        break;
+                    }
+                    i++;
+                }
+
+                if (notFoundInCurrentPlaylist == true)
+                {
+
+                }
+            });
+            musicListView.EnsureVisible(index);
+            /*
             var items = musicListView.Items.Find(songTitleLabel.Text, true);
             if (items.Length > 0) 
             { 
@@ -6331,11 +6357,15 @@ namespace Khi_Player
                 {
                     foreach (var item in items)
                     {
-                        if (item.Name == currentlyPlayingSongInfo[3]) { musicListView.EnsureVisible(item.Index); }
+                        if (item.Name == currentlyPlayingSongInfo[3]) 
+                        { 
+                            musicListView.EnsureVisible(item.Index); 
+                        }
                     }
                             
                 }
             }
+            */
         }
     }
 

@@ -165,7 +165,7 @@
             // showLyricsMenuItem
             // 
             showLyricsMenuItem.Name = "showLyricsMenuItem";
-            showLyricsMenuItem.Size = new Size(161, 22);
+            showLyricsMenuItem.Size = new Size(180, 22);
             showLyricsMenuItem.Text = "Show Lyrics";
             showLyricsMenuItem.Click += showLyricsMenuItem_Click;
             // 
@@ -174,7 +174,7 @@
             showAlbumArtMenuItem.Checked = true;
             showAlbumArtMenuItem.CheckState = CheckState.Checked;
             showAlbumArtMenuItem.Name = "showAlbumArtMenuItem";
-            showAlbumArtMenuItem.Size = new Size(161, 22);
+            showAlbumArtMenuItem.Size = new Size(180, 22);
             showAlbumArtMenuItem.Text = "Show Album Art";
             showAlbumArtMenuItem.Click += showAlbumArtMenuItem_Click;
             // 
@@ -183,21 +183,21 @@
             showTileViewMenuItem.Checked = true;
             showTileViewMenuItem.CheckState = CheckState.Checked;
             showTileViewMenuItem.Name = "showTileViewMenuItem";
-            showTileViewMenuItem.Size = new Size(161, 22);
+            showTileViewMenuItem.Size = new Size(180, 22);
             showTileViewMenuItem.Text = "Tile View";
             showTileViewMenuItem.Click += showTileViewMenuItem_Click;
             // 
             // showLargeIconMenuItem
             // 
             showLargeIconMenuItem.Name = "showLargeIconMenuItem";
-            showLargeIconMenuItem.Size = new Size(161, 22);
+            showLargeIconMenuItem.Size = new Size(180, 22);
             showLargeIconMenuItem.Text = "Large Icon View";
             showLargeIconMenuItem.Click += showLargeIconMenuItem_Click;
             // 
             // showDetailsMenuItem
             // 
             showDetailsMenuItem.Name = "showDetailsMenuItem";
-            showDetailsMenuItem.Size = new Size(161, 22);
+            showDetailsMenuItem.Size = new Size(180, 22);
             showDetailsMenuItem.Text = "Details View";
             showDetailsMenuItem.Click += showDetailsMenuItem_Click;
             // 
@@ -205,7 +205,7 @@
             // 
             darkModeMenuItem.CheckOnClick = true;
             darkModeMenuItem.Name = "darkModeMenuItem";
-            darkModeMenuItem.Size = new Size(161, 22);
+            darkModeMenuItem.Size = new Size(180, 22);
             darkModeMenuItem.Text = "Dark Mode";
             darkModeMenuItem.Click += darkModeMenuItem_Click;
             // 
@@ -226,7 +226,7 @@
             // 
             SortListMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortListTitleMenuItem, sortListArtistMenuItem, sortListAlbumMenuItem });
             SortListMenuItem.Name = "SortListMenuItem";
-            SortListMenuItem.Size = new Size(170, 22);
+            SortListMenuItem.Size = new Size(180, 22);
             SortListMenuItem.Text = "Sort";
             // 
             // sortListTitleMenuItem
@@ -253,7 +253,7 @@
             // RescanMenuItem
             // 
             RescanMenuItem.Name = "RescanMenuItem";
-            RescanMenuItem.Size = new Size(170, 22);
+            RescanMenuItem.Size = new Size(180, 22);
             RescanMenuItem.Text = "Rescan and Check";
             RescanMenuItem.ToolTipText = "Scans Database for Duplicates and Reloads it";
             RescanMenuItem.Click += RescanMenuItem_Click;
@@ -261,7 +261,7 @@
             // ClearListItem
             // 
             ClearListItem.Name = "ClearListItem";
-            ClearListItem.Size = new Size(170, 22);
+            ClearListItem.Size = new Size(180, 22);
             ClearListItem.Text = "Clear List";
             ClearListItem.ToolTipText = "Clears All Songs List";
             ClearListItem.Click += ClearListItem_Click;
@@ -352,13 +352,13 @@
             // 
             // musicListView
             // 
-            musicListView.Activation = ItemActivation.OneClick;
             musicListView.AllowColumnReorder = true;
             musicListView.AllowDrop = true;
             musicListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             musicListView.BackColor = SystemColors.Window;
             musicListView.BackgroundImageTiled = true;
             musicListView.BorderStyle = BorderStyle.None;
+            musicListView.CausesValidation = false;
             musicListView.Columns.AddRange(new ColumnHeader[] { musicTitle, musicArtist, musicAlbum });
             musicListView.ContextMenuStrip = rightClickMenu;
             musicListView.ForeColor = SystemColors.WindowText;
@@ -410,7 +410,7 @@
             rightClickMenu.Items.AddRange(new ToolStripItem[] { playMenuItem, showItemInfoButton, editItemTagsButton, removeItemButton, addToPlaylistButton });
             rightClickMenu.Name = "contextMenuStrip1";
             rightClickMenu.RenderMode = ToolStripRenderMode.System;
-            rightClickMenu.Size = new Size(181, 136);
+            rightClickMenu.Size = new Size(152, 114);
             rightClickMenu.Closed += rightClickMenu_Closed;
             rightClickMenu.Opening += rightClickMenu_Opening;
             // 
@@ -418,14 +418,14 @@
             // 
             playMenuItem.ForeColor = Color.White;
             playMenuItem.Name = "playMenuItem";
-            playMenuItem.Size = new Size(180, 22);
+            playMenuItem.Size = new Size(151, 22);
             playMenuItem.Text = "Play";
             // 
             // showItemInfoButton
             // 
             showItemInfoButton.Enabled = false;
             showItemInfoButton.Name = "showItemInfoButton";
-            showItemInfoButton.Size = new Size(180, 22);
+            showItemInfoButton.Size = new Size(151, 22);
             showItemInfoButton.Text = "Show Info";
             showItemInfoButton.Click += showItemInfoButton_Click;
             // 
@@ -433,14 +433,14 @@
             // 
             editItemTagsButton.Enabled = false;
             editItemTagsButton.Name = "editItemTagsButton";
-            editItemTagsButton.Size = new Size(180, 22);
+            editItemTagsButton.Size = new Size(151, 22);
             editItemTagsButton.Text = "Edit Tags";
             // 
             // removeItemButton
             // 
             removeItemButton.Enabled = false;
             removeItemButton.Name = "removeItemButton";
-            removeItemButton.Size = new Size(180, 22);
+            removeItemButton.Size = new Size(151, 22);
             removeItemButton.Text = "Remove";
             removeItemButton.Click += removeItemButton_Click;
             // 
@@ -449,7 +449,7 @@
             addToPlaylistButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
             addToPlaylistButton.Enabled = false;
             addToPlaylistButton.Name = "addToPlaylistButton";
-            addToPlaylistButton.Size = new Size(180, 22);
+            addToPlaylistButton.Size = new Size(151, 22);
             addToPlaylistButton.Text = "Add To Playlist";
             addToPlaylistButton.Visible = false;
             // 
