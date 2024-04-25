@@ -3908,21 +3908,24 @@ namespace Khi_Player
 
         private async void removeItemButton_Click(object sender, EventArgs e)
         {
-            
-            GC.Collect();
-            bool wasPlaying = false;
-            bool removeFromAllPlaylists;
 
-            int i = musicListView.Items.Find(currentlySelectedSong[3], false)[0].Index;
-            var item = (string[])currentlySelectedSong.Clone();
+            bool wasPlaying = false;
+
             if (currentlyPlayingSongInfo == currentlySelectedSong)
             {
                 wasPlaying = true;
                 PlayBackFunction.mediaPlayer.Stop();
                 PlayBackFunction.song.Dispose();
                 currentlyPlayingSongPic = null;
-
+                pictureBox1.Image = null;
+                GC.Collect();
+                wasPlaying = true;
             }
+            
+            bool removeFromAllPlaylists;
+
+            int i = musicListView.Items.Find(currentlySelectedSong[3], false)[0].Index;
+            var item = (string[])currentlySelectedSong.Clone();
 
             musicListView.BeginUpdate();
             musicListView.Items.RemoveAt(i);
