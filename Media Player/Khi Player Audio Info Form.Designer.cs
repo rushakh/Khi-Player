@@ -361,10 +361,10 @@
             // 
             // audioArtBox
             // 
-            audioArtBox.Location = new Point(60, 11);
+            audioArtBox.Location = new Point(92, 11);
             audioArtBox.Margin = new Padding(3, 2, 3, 2);
             audioArtBox.Name = "audioArtBox";
-            audioArtBox.Size = new Size(203, 154);
+            audioArtBox.Size = new Size(177, 154);
             audioArtBox.SizeMode = PictureBoxSizeMode.StretchImage;
             audioArtBox.TabIndex = 0;
             audioArtBox.TabStop = false;

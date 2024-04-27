@@ -48,6 +48,8 @@
             sortListAlbumMenuItem = new ToolStripMenuItem();
             RescanMenuItem = new ToolStripMenuItem();
             ClearListItem = new ToolStripMenuItem();
+            editLyricsToolStripButton = new ToolStripButton();
+            applyEditStripButton = new ToolStripButton();
             clearListMenuItem = new ToolStripMenuItem();
             PlayPause = new Button();
             skip = new Button();
@@ -109,7 +111,7 @@
             userBar.GripMargin = new Padding(0);
             userBar.GripStyle = ToolStripGripStyle.Hidden;
             userBar.ImageScalingSize = new Size(20, 20);
-            userBar.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, listToolStripMenuItem });
+            userBar.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, listToolStripMenuItem, editLyricsToolStripButton, applyEditStripButton });
             userBar.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             userBar.Location = new Point(0, 0);
             userBar.Name = "userBar";
@@ -165,7 +167,7 @@
             // showLyricsMenuItem
             // 
             showLyricsMenuItem.Name = "showLyricsMenuItem";
-            showLyricsMenuItem.Size = new Size(180, 22);
+            showLyricsMenuItem.Size = new Size(161, 22);
             showLyricsMenuItem.Text = "Show Lyrics";
             showLyricsMenuItem.Click += showLyricsMenuItem_Click;
             // 
@@ -174,7 +176,7 @@
             showAlbumArtMenuItem.Checked = true;
             showAlbumArtMenuItem.CheckState = CheckState.Checked;
             showAlbumArtMenuItem.Name = "showAlbumArtMenuItem";
-            showAlbumArtMenuItem.Size = new Size(180, 22);
+            showAlbumArtMenuItem.Size = new Size(161, 22);
             showAlbumArtMenuItem.Text = "Show Album Art";
             showAlbumArtMenuItem.Click += showAlbumArtMenuItem_Click;
             // 
@@ -183,21 +185,21 @@
             showTileViewMenuItem.Checked = true;
             showTileViewMenuItem.CheckState = CheckState.Checked;
             showTileViewMenuItem.Name = "showTileViewMenuItem";
-            showTileViewMenuItem.Size = new Size(180, 22);
+            showTileViewMenuItem.Size = new Size(161, 22);
             showTileViewMenuItem.Text = "Tile View";
             showTileViewMenuItem.Click += showTileViewMenuItem_Click;
             // 
             // showLargeIconMenuItem
             // 
             showLargeIconMenuItem.Name = "showLargeIconMenuItem";
-            showLargeIconMenuItem.Size = new Size(180, 22);
+            showLargeIconMenuItem.Size = new Size(161, 22);
             showLargeIconMenuItem.Text = "Large Icon View";
             showLargeIconMenuItem.Click += showLargeIconMenuItem_Click;
             // 
             // showDetailsMenuItem
             // 
             showDetailsMenuItem.Name = "showDetailsMenuItem";
-            showDetailsMenuItem.Size = new Size(180, 22);
+            showDetailsMenuItem.Size = new Size(161, 22);
             showDetailsMenuItem.Text = "Details View";
             showDetailsMenuItem.Click += showDetailsMenuItem_Click;
             // 
@@ -205,7 +207,7 @@
             // 
             darkModeMenuItem.CheckOnClick = true;
             darkModeMenuItem.Name = "darkModeMenuItem";
-            darkModeMenuItem.Size = new Size(180, 22);
+            darkModeMenuItem.Size = new Size(161, 22);
             darkModeMenuItem.Text = "Dark Mode";
             darkModeMenuItem.Click += darkModeMenuItem_Click;
             // 
@@ -265,6 +267,33 @@
             ClearListItem.Text = "Clear List";
             ClearListItem.ToolTipText = "Clears All Songs List";
             ClearListItem.Click += ClearListItem_Click;
+            // 
+            // editLyricsToolStripButton
+            // 
+            editLyricsToolStripButton.AutoSize = false;
+            editLyricsToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            editLyricsToolStripButton.Enabled = false;
+            editLyricsToolStripButton.Image = (Image)resources.GetObject("editLyricsToolStripButton.Image");
+            editLyricsToolStripButton.ImageTransparentColor = Color.Magenta;
+            editLyricsToolStripButton.Margin = new Padding(350, 1, 0, 2);
+            editLyricsToolStripButton.Name = "editLyricsToolStripButton";
+            editLyricsToolStripButton.Size = new Size(60, 20);
+            editLyricsToolStripButton.Text = "Edit Lyrics";
+            editLyricsToolStripButton.Visible = false;
+            editLyricsToolStripButton.Click += editLyricsToolStripButton_Click;
+            // 
+            // applyEditStripButton
+            // 
+            applyEditStripButton.AutoSize = false;
+            applyEditStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            applyEditStripButton.Enabled = false;
+            applyEditStripButton.Image = (Image)resources.GetObject("applyEditStripButton.Image");
+            applyEditStripButton.ImageTransparentColor = Color.Magenta;
+            applyEditStripButton.Name = "applyEditStripButton";
+            applyEditStripButton.Size = new Size(40, 20);
+            applyEditStripButton.Text = "Apply";
+            applyEditStripButton.Visible = false;
+            applyEditStripButton.Click += applyEditStripButton_Click;
             // 
             // clearListMenuItem
             // 
@@ -922,5 +951,7 @@
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripLabel playlistIdentifierLabel;
         private ToolStripLabel currentPlaylistLabel;
+        public ToolStripButton editLyricsToolStripButton;
+        public ToolStripButton applyEditStripButton;
     }
 }
