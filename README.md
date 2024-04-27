@@ -19,7 +19,8 @@ PS: Khi means boar in my language, the name is a sort of an inside joke and I de
 
 
 
-![Khi Player - sample 1](https://github.com/rushakh/Khi-Player/assets/151368929/bb8b7b55-24fc-4801-a7cc-79fbe2af5d3c)
+![Khi Player - sample](https://github.com/rushakh/Khi-Player/assets/151368929/41def25e-3629-4082-8ee4-468ced243e5f)
+
 
 
 
