@@ -14,5 +14,6 @@ Anyhow, I'm happy with how it turned out, and I'll of course update, debug and d
 If you like the idea of this music player lemme know, it will make me extremely happy :) and if you find a bug (which you surely will) or have some suggestions regarding how I could change some parts, do let me know
 
 aha almost forgot, you can drag and drop your music files, add an entire folder or add songs using the provided buttons, they are easy to find and use
+
 PS: Khi means boar in my language, the name is a sort of an inside joke and I decided to stick with it :)
 
