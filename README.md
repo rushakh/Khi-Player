@@ -1,7 +1,7 @@
   ![Khi Player Icon](https://github.com/rushakh/Khi-Player/assets/151368929/d9e80b24-1ad5-4d07-bd88-8b4a06b20045)
 
 
-This is not actually the first version, more like the 20 something the version but it is the first that I'm sharing hence v1. 
+This is not actually the first version, more like the 20-something-th version but it is the first that I'm sharing hence v1. 
 
 I started this as I was learning how to read and write txt files using code which turned into a simple idea for a pseudo-database (sort of a long shot but I'll go with that for now); as I changed different parts and learned new things, thanks to the frustration that writing this was causing me, I'd go back and rewrite the older parts. 
 
