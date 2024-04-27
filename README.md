@@ -1,4 +1,4 @@
-![Khi Player Icon](https://github.com/rushakh/Khi-Player/assets/151368929/d9e80b24-1ad5-4d07-bd88-8b4a06b20045)
+                      ![Khi Player Icon](https://github.com/rushakh/Khi-Player/assets/151368929/d9e80b24-1ad5-4d07-bd88-8b4a06b20045)
 
 
 This is not actually the first version, more like the 20 something the version but it is the first that I'm sharing hence v1. 
