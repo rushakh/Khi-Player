@@ -17,3 +17,10 @@ aha almost forgot, you can drag and drop your music files, add an entire folder 
 
 PS: Khi means boar in my language, the name is a sort of an inside joke and I decided to stick with it :)
 
+
+
+![Khi Player - sample 1](https://github.com/rushakh/Khi-Player/assets/151368929/bb8b7b55-24fc-4801-a7cc-79fbe2af5d3c)
+
+
+
+![Khi Player - sample 2](https://github.com/rushakh/Khi-Player/assets/151368929/eea616a7-0077-4185-9e07-07904c1c74df)
