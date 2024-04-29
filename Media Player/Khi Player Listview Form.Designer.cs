@@ -228,7 +228,7 @@
             // 
             SortListMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortListTitleMenuItem, sortListArtistMenuItem, sortListAlbumMenuItem });
             SortListMenuItem.Name = "SortListMenuItem";
-            SortListMenuItem.Size = new Size(180, 22);
+            SortListMenuItem.Size = new Size(170, 22);
             SortListMenuItem.Text = "Sort";
             // 
             // sortListTitleMenuItem
@@ -255,7 +255,7 @@
             // RescanMenuItem
             // 
             RescanMenuItem.Name = "RescanMenuItem";
-            RescanMenuItem.Size = new Size(180, 22);
+            RescanMenuItem.Size = new Size(170, 22);
             RescanMenuItem.Text = "Rescan and Check";
             RescanMenuItem.ToolTipText = "Scans Database for Duplicates and Reloads it";
             RescanMenuItem.Click += RescanMenuItem_Click;
@@ -263,7 +263,7 @@
             // ClearListItem
             // 
             ClearListItem.Name = "ClearListItem";
-            ClearListItem.Size = new Size(180, 22);
+            ClearListItem.Size = new Size(170, 22);
             ClearListItem.Text = "Clear List";
             ClearListItem.ToolTipText = "Clears All Songs List";
             ClearListItem.Click += ClearListItem_Click;
@@ -395,7 +395,6 @@
             musicListView.HideSelection = true;
             musicListView.Location = new Point(90, 36);
             musicListView.Margin = new Padding(0);
-            musicListView.MaximumSize = new Size(380, 508);
             musicListView.Name = "musicListView";
             musicListView.ShowGroups = false;
             musicListView.ShowItemToolTips = true;
@@ -410,12 +409,10 @@
             musicListView.ItemSelectionChanged += musicListView_ItemSelectionChanged;
             musicListView.DragDrop += musicListView_DragDrop;
             musicListView.DragEnter += musicListView_DragEnter;
-            musicListView.DragOver += musicListView_DragOver;
             musicListView.Invalidated += musicListView_Invalidated;
             musicListView.KeyPress += musicListView_KeyPress;
             musicListView.MouseClick += musicListView_MouseClick;
             musicListView.MouseDown += musicListView_MouseDown;
-            musicListView.MouseMove += musicListView_MouseMove;
             // 
             // musicTitle
             // 
@@ -743,7 +740,7 @@
             // songLengthLabel
             // 
             songLengthLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            songLengthLabel.Location = new Point(884, 3);
+            songLengthLabel.Location = new Point(896, 3);
             songLengthLabel.Margin = new Padding(2, 0, 2, 0);
             songLengthLabel.Name = "songLengthLabel";
             songLengthLabel.Size = new Size(39, 16);
@@ -839,9 +836,7 @@
             searchMusicListView.PlaceholderText = "Search Using Title, Artist, or Album";
             searchMusicListView.Size = new Size(382, 16);
             searchMusicListView.TabIndex = 13;
-            searchMusicListView.TextChanged += searchMusicListView_TextChanged;
             searchMusicListView.KeyDown += searchMusicListView_KeyDown;
-            searchMusicListView.KeyPress += searchMusicListView_KeyPress;
             // 
             // Form1
             // 
