@@ -112,6 +112,44 @@ namespace Khi_Player
         PlayBackFunction KhiPlayer;
         public static FormEditor KhiEditor;
 
+        public void HandlePlaybackUI ()
+        {
+            if (seekBar.Enabled == false) { seekBar.Enabled = true; }
+            PlayBackFunction.SongTimeValue(true);
+
+            seekBar.Maximum = seekbarMax;
+            seekBar.Value = timeValue;
+            songLengthLabel.Text = songLength;
+            currentTimeLabel.Text = currenSongTimePosition;
+            songSeekTimer.Enabled = true;
+            borderLabel.Visible = true;
+            songTitleLabel.Text = currentlyPlayingSongInfo[0];
+            songArtistLabel.Text = currentlyPlayingSongInfo[1];
+            songAlbumLabel.Text = currentlyPlayingSongInfo[2];
+
+            editLyricsToolStripButton.Enabled = true;
+            editLyricsToolStripButton.Visible = true;
+
+            if (Status == States.Playing)
+            {
+                if (currentlyPlayingSongPic != null)
+                {
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                        //pictureBox1.Image = null;
+                    }
+                    pictureBox1.Image = currentlyPlayingSongPic;
+                }
+                else
+                {
+                    pictureBox1.Image = Properties.Resources.Khi_Player;
+                }
+            }
+            lyricsTextBox.Clear();
+            lyricsTextBox.Text = lyrics;
+        }
+
         /// <summary>
         /// Creates a button using the playlistName, attaches it to a common event handler
         /// and adds it to the playlistToolbar
@@ -1045,46 +1083,11 @@ namespace Khi_Player
 
         private async void PlayPause_Click(object sender, EventArgs e)
         {
-            songSeekTimer.Enabled = false;
             await Task.Run(() =>
             {
                 PlayBackFunction.PlayPauseMusic();
             });
-            if (seekBar.Enabled == false) { seekBar.Enabled = true; }
-            
-            PlayBackFunction.SongTimeValue(true);
-            songLengthLabel.Text = songLength;
-            seekBar.Maximum = seekbarMax;
-            seekBar.Value = timeValue;
-            currentTimeLabel.Text = currenSongTimePosition;
-            songSeekTimer.Enabled = true;
-            borderLabel.Visible = true;
-            songTitleLabel.Text = currentlyPlayingSongInfo[0];
-            songArtistLabel.Text = currentlyPlayingSongInfo[1];
-            songAlbumLabel.Text = currentlyPlayingSongInfo[2];
-
-            editLyricsToolStripButton.Enabled = true;
-            editLyricsToolStripButton.Visible = true;
-
-            if (Status == States.Playing)
-            {
-                if (currentlyPlayingSongPic != null)
-                {
-                    if (pictureBox1.Image != null)
-                    {
-                        pictureBox1.Image.Dispose();
-                        //pictureBox1.Image = null;
-                    }
-                    pictureBox1.Image = currentlyPlayingSongPic;
-                }
-                else
-                {
-                    pictureBox1.Image = Properties.Resources.Khi_Player;
-                }
-            }
-            lyricsTextBox.Clear();
-            lyricsTextBox.Text = lyrics;
-            //GC.Collect();
+            HandlePlaybackUI();
         }
 
         private async void skip_Click(object sender, EventArgs e)
@@ -1092,43 +1095,12 @@ namespace Khi_Player
             if (Status == States.Playing || Status == States.Paused ||
                 Status == States.Stopped || Status == States.Finished)
             {
-                songSeekTimer.Enabled = false;
                 await Task.Run(() =>
                 {
                     PlayBackFunction.SkipMusic();
                 });
-                if (seekBar.Enabled == false) { seekBar.Enabled = true; }               
-                PlayBackFunction.SongTimeValue(true);
-                songLengthLabel.Text = songLength;
-                seekBar.Maximum = seekbarMax;
-                seekBar.Value = timeValue;
-                currentTimeLabel.Text = currenSongTimePosition;
-                songSeekTimer.Enabled = true;
-                borderLabel.Visible = true;
-                songTitleLabel.Text = currentlyPlayingSongInfo[0];
-                songArtistLabel.Text = currentlyPlayingSongInfo[1];
-                songAlbumLabel.Text = currentlyPlayingSongInfo[2];
-
-                editLyricsToolStripButton.Enabled = true;
-                editLyricsToolStripButton.Visible = true;
-
-                if (currentlyPlayingSongPic != null)
-                {
-                    if (pictureBox1.Image != null)
-                    {
-                        pictureBox1.Image.Dispose();
-                    }
-                    pictureBox1.Image = null;
-                    pictureBox1.Image = currentlyPlayingSongPic;
-                }
-                else
-                {
-                    pictureBox1.Image = Properties.Resources.Khi_Player;
-                }
-                lyricsTextBox.Clear();
-                lyricsTextBox.Text = lyrics;
+                HandlePlaybackUI();
             }
-            //GC.Collect();
         }
 
         private async void previous_Click(object sender, EventArgs e)
@@ -1136,44 +1108,12 @@ namespace Khi_Player
             if (Status == States.Playing || Status == States.Paused ||
                 Status == States.Stopped || Status == States.Finished)
             {
-                songSeekTimer.Enabled = false;
                 await Task.Run(() =>
                 {
                     PlayBackFunction.PreviousMusic();
                 });
-                if (seekBar.Enabled == false) { seekBar.Enabled = true; }
-                
-                PlayBackFunction.SongTimeValue(true);
-                songLengthLabel.Text = songLength;
-                seekBar.Maximum = seekbarMax;
-                seekBar.Value = timeValue;
-                currentTimeLabel.Text = currenSongTimePosition;
-                songSeekTimer.Enabled = true;
-                borderLabel.Visible = true;
-                songTitleLabel.Text = currentlyPlayingSongInfo[0];
-                songArtistLabel.Text = currentlyPlayingSongInfo[1];
-                songAlbumLabel.Text = currentlyPlayingSongInfo[2];
-
-                editLyricsToolStripButton.Enabled = true;
-                editLyricsToolStripButton.Visible = true;
-
-                if (currentlyPlayingSongPic != null)
-                {
-                    if (pictureBox1.Image != null)
-                    {
-                        pictureBox1.Image.Dispose();
-                    }
-                    pictureBox1.Image = null;
-                    pictureBox1.Image = currentlyPlayingSongPic;
-                }
-                else
-                {
-                    pictureBox1.Image = Properties.Resources.Khi_Player;
-                }
+                HandlePlaybackUI();
             }
-            lyricsTextBox.Clear();
-            lyricsTextBox.Text = lyrics;
-            //GC.Collect();
         }
 
         private void musicListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -1688,9 +1628,13 @@ namespace Khi_Player
                 if (seekBar.Value == seekBar.Maximum)
                 { Status = States.Finished; }
                 PlayBackFunction.SongTimeValue();
-                currentTimeLabel.Text = currenSongTimePosition;
-                seekBar.Value = timeValue;
-                lastSongTimePosition = timeValue;
+                try
+                {
+                    currentTimeLabel.Text = currenSongTimePosition;
+                    seekBar.Value = timeValue;
+                    lastSongTimePosition = timeValue;
+                }
+                catch { }
             }
             else if (Status == States.Finished)
             {
@@ -1752,6 +1696,7 @@ namespace Khi_Player
 
         private void Form1_Resize(object sender, EventArgs e)
         {
+            /*
             var formsize = this.Size;
             if (this.Size.Width > this.MinimumSize.Width && this.Size.Height > this.MinimumSize.Height)
             {
@@ -1770,7 +1715,7 @@ namespace Khi_Player
                 songArtistLabel.Font = new Font("Segoe UI", size);
                 songAlbumLabel.Font = new Font("Segoe UI", size);
                 new Font("Segoe UI", size);
-            }
+            }*/
         }
 
 

@@ -577,7 +577,7 @@
             mediaPlayerPanel.AllowDrop = true;
             mediaPlayerPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             mediaPlayerPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            mediaPlayerPanel.BackgroundImageLayout = ImageLayout.Stretch;
+            mediaPlayerPanel.BackgroundImageLayout = ImageLayout.Zoom;
             mediaPlayerPanel.Controls.Add(borderLabel);
             mediaPlayerPanel.Controls.Add(songAlbumLabel);
             mediaPlayerPanel.Controls.Add(songArtistLabel);
@@ -596,10 +596,10 @@
             borderLabel.BackColor = SystemColors.Window;
             borderLabel.FlatStyle = FlatStyle.Flat;
             borderLabel.Font = new Font("Segoe UI", 6F, FontStyle.Bold);
-            borderLabel.Location = new Point(92, 472);
-            borderLabel.Margin = new Padding(0);
+            borderLabel.Location = new Point(193, 491);
+            borderLabel.Margin = new Padding(0, 5, 0, 0);
             borderLabel.Name = "borderLabel";
-            borderLabel.Size = new Size(273, 8);
+            borderLabel.Size = new Size(85, 11);
             borderLabel.TabIndex = 17;
             borderLabel.Text = "********************";
             borderLabel.TextAlign = ContentAlignment.TopCenter;
@@ -610,11 +610,11 @@
             songAlbumLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             songAlbumLabel.FlatStyle = FlatStyle.Flat;
             songAlbumLabel.Font = new Font("Segoe UI", 14F);
-            songAlbumLabel.Location = new Point(1, 548);
+            songAlbumLabel.Location = new Point(1, 557);
             songAlbumLabel.Margin = new Padding(1);
             songAlbumLabel.Name = "songAlbumLabel";
             songAlbumLabel.Padding = new Padding(1, 0, 8, 0);
-            songAlbumLabel.Size = new Size(472, 35);
+            songAlbumLabel.Size = new Size(472, 25);
             songAlbumLabel.TabIndex = 16;
             songAlbumLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -623,11 +623,11 @@
             songArtistLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             songArtistLabel.FlatStyle = FlatStyle.Flat;
             songArtistLabel.Font = new Font("Segoe UI", 14F);
-            songArtistLabel.Location = new Point(1, 514);
+            songArtistLabel.Location = new Point(1, 530);
             songArtistLabel.Margin = new Padding(1);
             songArtistLabel.Name = "songArtistLabel";
             songArtistLabel.Padding = new Padding(1, 0, 8, 0);
-            songArtistLabel.Size = new Size(472, 32);
+            songArtistLabel.Size = new Size(472, 25);
             songArtistLabel.TabIndex = 15;
             songArtistLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -636,11 +636,11 @@
             songTitleLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             songTitleLabel.FlatStyle = FlatStyle.Flat;
             songTitleLabel.Font = new Font("Segoe UI", 14F);
-            songTitleLabel.Location = new Point(1, 481);
+            songTitleLabel.Location = new Point(1, 503);
             songTitleLabel.Margin = new Padding(1);
             songTitleLabel.Name = "songTitleLabel";
             songTitleLabel.Padding = new Padding(1, 0, 8, 0);
-            songTitleLabel.Size = new Size(472, 32);
+            songTitleLabel.Size = new Size(472, 25);
             songTitleLabel.TabIndex = 14;
             songTitleLabel.TextAlign = ContentAlignment.MiddleCenter;
             songTitleLabel.Click += songTitleLabel_Click;
@@ -668,7 +668,6 @@
             // musicControlBar
             // 
             musicControlBar.AutoSize = true;
-            musicControlBar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             musicControlBar.BackColor = SystemColors.Window;
             musicControlBar.Controls.Add(stopButton);
             musicControlBar.Controls.Add(toggleShuffle);
@@ -844,7 +843,6 @@
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = SystemColors.Window;
             BackgroundImageLayout = ImageLayout.Stretch;
