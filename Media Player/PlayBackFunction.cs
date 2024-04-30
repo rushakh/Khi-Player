@@ -22,26 +22,31 @@ namespace Khi_Player
 
         public static void SongTimeValue(bool getFullLength = false)
         {
-            if (getFullLength)
+            try
             {
-                if (song.TotalTime.Hours > 0)
-                { songLength = song.TotalTime.ToString("hh\\:mm\\:ss"); }
-                else
-                { songLength = song.TotalTime.ToString("mm\\:ss"); }
-                seekbarMax = (int)Math.Round(song.TotalTime.TotalSeconds, MidpointRounding.ToZero);
+                if (getFullLength)
+                {
+                    if (song.TotalTime.Hours > 0)
+                    { songLength = song.TotalTime.ToString("hh\\:mm\\:ss"); }
+                    else
+                    { songLength = song.TotalTime.ToString("mm\\:ss"); }
+                    seekbarMax = (int)Math.Round(song.TotalTime.TotalSeconds, MidpointRounding.ToZero);
+                }
+                if (song != null && mediaPlayer.PlaybackState == PlaybackState.Playing && song.CurrentTime.TotalSeconds <= song.TotalTime.TotalSeconds)
+                {
+                    timeValue = (int)Math.Round(song.CurrentTime.TotalSeconds, MidpointRounding.ToZero);
+                    if (timeValue >= 3600) { currenSongTimePosition = song.CurrentTime.ToString("hh\\:mm\\:ss"); }
+                    else { currenSongTimePosition = song.CurrentTime.ToString("mm\\:ss"); }
+                }
+                else if (song != null && mediaPlayer.PlaybackState == PlaybackState.Playing && song.CurrentTime.TotalSeconds > song.TotalTime.TotalSeconds)
+                {
+                    timeValue = (int)Math.Round(song.TotalTime.TotalSeconds, MidpointRounding.ToZero);
+                    if (timeValue >= 3600) { currenSongTimePosition = song.TotalTime.ToString("hh\\:mm\\:ss"); }
+                    else { currenSongTimePosition = song.TotalTime.ToString("mm\\:ss"); }
+                }
             }
-            if (song.CurrentTime.TotalSeconds <= song.TotalTime.TotalSeconds)
-            {
-                timeValue = (int)Math.Round(song.CurrentTime.TotalSeconds, MidpointRounding.ToZero);
-                if (timeValue >= 3600) { currenSongTimePosition = song.CurrentTime.ToString("hh\\:mm\\:ss"); }
-                else { currenSongTimePosition = song.CurrentTime.ToString("mm\\:ss"); }
-            }
-            else
-            {
-                timeValue = (int)Math.Round(song.TotalTime.TotalSeconds, MidpointRounding.ToZero);
-                if (timeValue >= 3600) { currenSongTimePosition = song.TotalTime.ToString("hh\\:mm\\:ss"); }
-                else { currenSongTimePosition = song.TotalTime.ToString("mm\\:ss"); }
-            }
+            catch (Exception ex) 
+            { }
         }
 
         /// <summary>
@@ -64,7 +69,8 @@ namespace Khi_Player
             }
             song = new AudioFileReader(songPath);
             mediaPlayer = new WaveOutEvent();
-            mediaPlayer.DesiredLatency = 100;
+            mediaPlayer.NumberOfBuffers = 3;
+            mediaPlayer.DesiredLatency = 200;
             mediaPlayer.Init(song);
             mediaPlayer.Play();
             Status = States.Playing;
@@ -83,14 +89,7 @@ namespace Khi_Player
             }
             if (isShuffleEnabled == true)
             {
-                if (isShuffled == false)
-                {
-                    ShufflePlaylist();
-                }
-                else
-                {
-
-                }
+                if (isShuffled == false) { ShufflePlaylist(); }
             }
         }
 
@@ -169,35 +168,21 @@ namespace Khi_Player
         {
             CheckUpdateAndShuffle();
             string? dupliPlayCheck;
-            if (song != null)
-            {
-                dupliPlayCheck = song.FileName;
-                song.Dispose();
-                mediaPlayer.Dispose();
-            }
-            else
-            { dupliPlayCheck = null; }
-
-            currentlyPlayingSongInfo = null;
-            currentlyPlayingSongPic = null;
+            if (song != null) { dupliPlayCheck = song.FileName; }
+            else              { dupliPlayCheck = null; }
 
             if (isLoopEnabled == true) // if loop is enabled 
             {
-                if (LoopState == LoopStates.SingleSongLoop) //if loop is enabled and set to single loop, will not skip to next song
-                {
-
-                }
-                else //if loop is enabled and set to playlist Loop, skips to the next song in the playlist and incase the playlist has ended, reshuffles the playlistQue
-                     //and begins playing from the beginning of the playlist
+                //if loop state is set to single song loop does nothing. if loop is enabled and set to
+                //playlist Loop, skips to the next song in the playlist and incase the playlist has ended,
+                //reshuffles the playlistQue and begins playing from the beginning of the playlist
+                if (LoopState != LoopStates.SingleSongLoop) 
                 {
                     selectedMusicsQue++;
                     if (selectedMusicsQue > (PlaylistQueue.Length - 1))
                     {
                         selectedMusicsQue = 0;
-                        if (isShuffleEnabled)
-                        {
-                            ShufflePlaylist();
-                        }
+                        if (isShuffleEnabled) { ShufflePlaylist(); }
                     }
                 }
                 string newSong;
@@ -210,11 +195,9 @@ namespace Khi_Player
                     { selectedMusicsQue++; }
                     newSong = PlaylistQueue[shuffledIndices[selectedMusicsQue]][3];
                 }
-                else // if shuffle is not enabled, will simply start the new song
-                {
-                    newSong = PlaylistQueue[selectedMusicsQue][3];
-                }
-                LoadAndPlayNewSong(newSong, false);
+                // if shuffle is not enabled, will simply start the new song
+                else { newSong = PlaylistQueue[selectedMusicsQue][3]; }
+                LoadAndPlayNewSong(newSong, true);
             }
             else // if loop is not enabled skips to the next song. in case the currently playing song was the last in que, will
                  // declare the end of playlist.
@@ -222,6 +205,10 @@ namespace Khi_Player
                 selectedMusicsQue++;
                 if (selectedMusicsQue > PlaylistQueue.Length - 1)
                 {
+                    mediaPlayer.Dispose();
+                    song.Dispose();
+                    currentlyPlayingSongPic = null;
+                    currentlyPlayingSongInfo = null;
                     System.Windows.Forms.MessageBox.Show("End of Playlist Reached \r\n Enable Loop for unintrupted playback");
                     Status = States.Finished;
                     selectedMusicsQue = 0;
@@ -229,15 +216,9 @@ namespace Khi_Player
                 else
                 {
                     string newSong;
-                    if (isShuffleEnabled == true)
-                    {
-                        newSong = PlaylistQueue[shuffledIndices[selectedMusicsQue]][3];
-                    }
-                    else
-                    {
-                        newSong = PlaylistQueue[selectedMusicsQue][3];
-                    }
-                    LoadAndPlayNewSong(newSong, false);
+                    if (isShuffleEnabled == true) { newSong = PlaylistQueue[shuffledIndices[selectedMusicsQue]][3]; }
+                    else { newSong = PlaylistQueue[selectedMusicsQue][3]; }
+                    LoadAndPlayNewSong(newSong, true);
                 }
             }
             SetPlayingMusicArtAndInfo();
@@ -250,17 +231,8 @@ namespace Khi_Player
         {
             CheckUpdateAndShuffle();
             string? duplPlayCheck;
-
-            if (song != null)
-            {
-                duplPlayCheck = song.FileName;
-                song.Dispose();
-                mediaPlayer.Dispose();
-            }
-            else
-            { duplPlayCheck = null; }
-            currentlyPlayingSongInfo = null;
-            currentlyPlayingSongPic = null;
+            if (song != null) { duplPlayCheck = song.FileName; }
+            else { duplPlayCheck = null; }
 
             if (isLoopEnabled == true && selectedMusicsQue == 0)
             {
@@ -272,16 +244,17 @@ namespace Khi_Player
                     { selectedMusicsQue--; }
                     newSong = PlaylistQueue[shuffledIndices[selectedMusicsQue]][3];
                 }
-                else
-                {
-                    newSong = PlaylistQueue[selectedMusicsQue][3];
-                }
-                LoadAndPlayNewSong(newSong, false);
+                else { newSong = PlaylistQueue[selectedMusicsQue][3]; }
+                LoadAndPlayNewSong(newSong, true);
             }
             else
             {
                 if (selectedMusicsQue == 0)
                 {
+                    song.Dispose();
+                    mediaPlayer.Dispose();
+                    currentlyPlayingSongInfo = null;
+                    currentlyPlayingSongPic = null;
                     System.Windows.Forms.MessageBox.Show("End of Playlist Reached \r\n Enable Loop for unintrupted playback");
                     Status = States.Finished;
                     selectedMusicsQue = 0;
@@ -296,11 +269,8 @@ namespace Khi_Player
                         { selectedMusicsQue--; }
                         newSong = PlaylistQueue[shuffledIndices[selectedMusicsQue]][3];
                     }
-                    else
-                    {
-                        newSong = PlaylistQueue[selectedMusicsQue][3];
-                    }
-                    LoadAndPlayNewSong(newSong, false);
+                    else { newSong = PlaylistQueue[selectedMusicsQue][3]; }
+                    LoadAndPlayNewSong(newSong, true);
                 }
             }
             SetPlayingMusicArtAndInfo();
@@ -330,46 +300,50 @@ namespace Khi_Player
                 System.IO.FileStream imageStream;  //using file stream so that no connection remains with the file itself that can cause error if the user wants to remove a song
                 string imagePath;
                 currentlyPlayingSongIndex = (int)selectedMusicsQue;
-
-                if (playingSelectedSong == true)
+                try
                 {
-                    currentlyPlayingSongInfo = PlaylistQueue[selectedMusicsQue];
-                    imagePath = currentlyPlayingSongInfo[4];
-                    using (imageStream = new System.IO.FileStream(imagePath, FileMode.Open))
+                    if (playingSelectedSong == true)
                     {
-                        currentlyPlayingSongPic = (Image)Image.FromStream(imageStream).Clone();
+                        currentlyPlayingSongInfo = PlaylistQueue[selectedMusicsQue];
+                        imagePath = currentlyPlayingSongInfo[4];
+                        using (imageStream = new System.IO.FileStream(imagePath, FileMode.Open))
+                        {
+                            currentlyPlayingSongPic = (Image)Image.FromStream(imageStream).Clone();
+                        }
+                        imageStream.Dispose();
+                        playingSelectedSong = false;
                     }
-                    imageStream.Dispose();
-                    playingSelectedSong = false;
-                }
-                else if (isShuffleEnabled)
-                {
-                    currentlyPlayingSongInfo = PlaylistQueue[shuffledIndices[(int)selectedMusicsQue]];
-                    imagePath = currentlyPlayingSongInfo[4];
-                    using (imageStream = new System.IO.FileStream(imagePath, FileMode.Open))
+                    else if (isShuffleEnabled)
                     {
-                        currentlyPlayingSongPic = (Image)Image.FromStream(imageStream).Clone();
+                        currentlyPlayingSongInfo = PlaylistQueue[shuffledIndices[(int)selectedMusicsQue]];
+                        imagePath = currentlyPlayingSongInfo[4];
+                        using (imageStream = new System.IO.FileStream(imagePath, FileMode.Open))
+                        {
+                            currentlyPlayingSongPic = (Image)Image.FromStream(imageStream).Clone();
+                        }
+                        imageStream.Dispose();
                     }
-                    imageStream.Dispose();
-                }
-                else
-                {
-                    currentlyPlayingSongInfo = PlaylistQueue[selectedMusicsQue];
-                    imagePath = currentlyPlayingSongInfo[4];
-                    using (imageStream = new System.IO.FileStream(imagePath, FileMode.Open))
+                    else
                     {
-                        currentlyPlayingSongPic = (Image)Image.FromStream(imageStream).Clone();
+                        currentlyPlayingSongInfo = PlaylistQueue[selectedMusicsQue];
+                        imagePath = currentlyPlayingSongInfo[4];
+                        using (imageStream = new System.IO.FileStream(imagePath, FileMode.Open))
+                        {
+                            currentlyPlayingSongPic = (Image)Image.FromStream(imageStream).Clone();
+                        }
+                        imageStream.Dispose();
                     }
-                    imageStream.Dispose();
                 }
+                catch { }
                 SongTimeValue(true);
+                timeValue = 0;
 
                 try
                 {
                     using (TagLib.File lyrictag = TagLib.File.Create(currentlyPlayingSongInfo[3]))
                     {
                         lyrics = lyrictag.Tag.Lyrics;
-                        if (lyrics != null)
+                        if (lyrics != null && lyrics != "")
                         { lyrics = lyrics.ReplaceLineEndings(); }
                         else { lyrics = "Oops! No Embedded Lyrics"; }
                     }
