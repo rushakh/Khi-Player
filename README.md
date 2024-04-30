@@ -3,12 +3,19 @@
 Edit:
 
 -Improved performance and stability
+
 -Addressed memory leaks and removed unnecessary usage of IDisposable interface and many instances of forced collection of Garbage Collector that, due to their nature as stop-gaps, were slowing down the program
+
 -Reworked and restructured the classes, and separated them from the main program
+
 -Separated  the UI functionalities and data processes even further 
+
 -Many of the functions now work asynchronously  
+
 -Retouched code formatting, removed unnecessary spaces, and improved readability
+
 -Improved the Seek bar's functionality and improved it's performance and accuracy
+
 -Some problems with the UI's resistibility were addressed 
 
 ---
