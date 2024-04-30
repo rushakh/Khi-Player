@@ -63,8 +63,6 @@ namespace Khi_Player
                 {
                     song.Dispose();
                     mediaPlayer.Dispose();
-                    currentlyPlayingSongInfo = null;
-                    currentlyPlayingSongPic = null;
                 }
             }
             song = new AudioFileReader(songPath);
@@ -253,8 +251,6 @@ namespace Khi_Player
                 {
                     song.Dispose();
                     mediaPlayer.Dispose();
-                    currentlyPlayingSongInfo = null;
-                    currentlyPlayingSongPic = null;
                     System.Windows.Forms.MessageBox.Show("End of Playlist Reached \r\n Enable Loop for unintrupted playback");
                     Status = States.Finished;
                     selectedMusicsQue = 0;

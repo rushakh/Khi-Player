@@ -51,7 +51,6 @@ namespace Khi_Player
                 }
                 allArtFilePaths = (string[])tempArtsPaths.ToArray().Clone();
                 tempArtsPaths.Clear();
-                tempArtsPaths = null;
 
                 List<string> artsToRemove = new List<string>();
                 XmlDocument MusicDataBase = new XmlDocument();
@@ -105,8 +104,6 @@ namespace Khi_Player
                 }
 
                 MusicDataBase.Save(allMusicDataBase);
-                MusicDataBase = null;
-                artsToRemove = null;
             });
             GC.Collect();
         }

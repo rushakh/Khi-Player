@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Khi_Player
 {
+    /// <summary>
+    /// This class is used as a shared pot for the variables, enums, objects, etc that are used throughout the program
+    /// </summary>
     public class SharedFieldsAndVariables
     {
         public enum Playlists { allSongs, searchPlaylist, DynamicPlaylists };
