@@ -1,5 +1,19 @@
   ![Khi Player Icon](https://github.com/rushakh/Khi-Player/assets/151368929/d9e80b24-1ad5-4d07-bd88-8b4a06b20045)
 
+Edit:
+
+-Improved performance and stability
+-Addressed memory leaks and removed unnecessary usage of IDisposable interface and many instances of forced collection of Garbage Collector that, due to their nature as stop-gaps, were slowing down the program
+-Reworked and restructured the classes, and separated them from the main program
+-Separated  the UI functionalities and data processes even further 
+-Many of the functions now work asynchronously  
+-Retouched code formatting, removed unnecessary spaces, and improved readability
+-Improved the Seek bar's functionality and improved it's performance and accuracy
+-Some problems with the UI's resistibility were addressed 
+
+---
+
+How it Began:
 
 This is not actually the first version, more like the 20-something-th version but it is the first that I'm sharing hence v1. 
 
