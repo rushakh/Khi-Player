@@ -109,10 +109,6 @@ namespace Khi_Player
             {
                 item = (string[]?)playlist[index].Clone();
             }
-
-            //for disposal
-            playlist = null;
-
             return item;
         }
 
