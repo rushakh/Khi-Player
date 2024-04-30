@@ -106,7 +106,6 @@
             // 
             // userBar
             // 
-            userBar.AutoSize = false;
             userBar.BackColor = SystemColors.Window;
             userBar.GripMargin = new Padding(0);
             userBar.GripStyle = ToolStripGripStyle.Hidden;
@@ -118,14 +117,13 @@
             userBar.Padding = new Padding(0, 0, 0, 2);
             userBar.RenderMode = ToolStripRenderMode.System;
             userBar.ShowItemToolTips = false;
-            userBar.Size = new Size(946, 22);
+            userBar.Size = new Size(946, 25);
             userBar.Stretch = true;
             userBar.TabIndex = 0;
             userBar.Text = "UserBar";
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.AutoSize = false;
             fileToolStripMenuItem.AutoToolTip = false;
             fileToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addMusicsToolStripMenuItem, addFolderToolStripMenuItem });
@@ -134,7 +132,7 @@
             fileToolStripMenuItem.ImageTransparentColor = Color.Magenta;
             fileToolStripMenuItem.Margin = new Padding(0);
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(45, 20);
+            fileToolStripMenuItem.Size = new Size(38, 23);
             fileToolStripMenuItem.Text = "File";
             // 
             // addMusicsToolStripMenuItem
@@ -153,7 +151,6 @@
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.AutoSize = false;
             viewToolStripMenuItem.AutoToolTip = false;
             viewToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
             viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showLyricsMenuItem, showAlbumArtMenuItem, showTileViewMenuItem, showLargeIconMenuItem, showDetailsMenuItem, darkModeMenuItem });
@@ -161,7 +158,7 @@
             viewToolStripMenuItem.ImageTransparentColor = Color.Magenta;
             viewToolStripMenuItem.Margin = new Padding(0);
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Size = new Size(45, 20);
+            viewToolStripMenuItem.Size = new Size(45, 23);
             viewToolStripMenuItem.Text = "View";
             // 
             // showLyricsMenuItem
@@ -213,7 +210,6 @@
             // 
             // listToolStripMenuItem
             // 
-            listToolStripMenuItem.AutoSize = false;
             listToolStripMenuItem.AutoToolTip = false;
             listToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
             listToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SortListMenuItem, RescanMenuItem, ClearListItem });
@@ -221,14 +217,14 @@
             listToolStripMenuItem.ImageTransparentColor = Color.Magenta;
             listToolStripMenuItem.Margin = new Padding(0);
             listToolStripMenuItem.Name = "listToolStripMenuItem";
-            listToolStripMenuItem.Size = new Size(45, 20);
+            listToolStripMenuItem.Size = new Size(38, 23);
             listToolStripMenuItem.Text = "List";
             // 
             // SortListMenuItem
             // 
             SortListMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortListTitleMenuItem, sortListArtistMenuItem, sortListAlbumMenuItem });
             SortListMenuItem.Name = "SortListMenuItem";
-            SortListMenuItem.Size = new Size(180, 22);
+            SortListMenuItem.Size = new Size(170, 22);
             SortListMenuItem.Text = "Sort";
             // 
             // sortListTitleMenuItem
@@ -255,7 +251,7 @@
             // RescanMenuItem
             // 
             RescanMenuItem.Name = "RescanMenuItem";
-            RescanMenuItem.Size = new Size(180, 22);
+            RescanMenuItem.Size = new Size(170, 22);
             RescanMenuItem.Text = "Rescan and Check";
             RescanMenuItem.ToolTipText = "Scans Database for Duplicates and Reloads it";
             RescanMenuItem.Click += RescanMenuItem_Click;
@@ -263,34 +259,32 @@
             // ClearListItem
             // 
             ClearListItem.Name = "ClearListItem";
-            ClearListItem.Size = new Size(180, 22);
+            ClearListItem.Size = new Size(170, 22);
             ClearListItem.Text = "Clear List";
             ClearListItem.ToolTipText = "Clears All Songs List";
             ClearListItem.Click += ClearListItem_Click;
             // 
             // editLyricsToolStripButton
             // 
-            editLyricsToolStripButton.AutoSize = false;
             editLyricsToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
             editLyricsToolStripButton.Enabled = false;
             editLyricsToolStripButton.Image = (Image)resources.GetObject("editLyricsToolStripButton.Image");
             editLyricsToolStripButton.ImageTransparentColor = Color.Magenta;
             editLyricsToolStripButton.Margin = new Padding(350, 1, 0, 2);
             editLyricsToolStripButton.Name = "editLyricsToolStripButton";
-            editLyricsToolStripButton.Size = new Size(60, 20);
+            editLyricsToolStripButton.Size = new Size(63, 20);
             editLyricsToolStripButton.Text = "Edit Lyrics";
             editLyricsToolStripButton.Visible = false;
             editLyricsToolStripButton.Click += editLyricsToolStripButton_Click;
             // 
             // applyEditStripButton
             // 
-            applyEditStripButton.AutoSize = false;
             applyEditStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
             applyEditStripButton.Enabled = false;
             applyEditStripButton.Image = (Image)resources.GetObject("applyEditStripButton.Image");
             applyEditStripButton.ImageTransparentColor = Color.Magenta;
             applyEditStripButton.Name = "applyEditStripButton";
-            applyEditStripButton.Size = new Size(40, 20);
+            applyEditStripButton.Size = new Size(42, 20);
             applyEditStripButton.Text = "Apply";
             applyEditStripButton.Visible = false;
             applyEditStripButton.Click += applyEditStripButton_Click;
@@ -304,6 +298,7 @@
             // PlayPause
             // 
             PlayPause.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            PlayPause.AutoSize = true;
             PlayPause.BackColor = SystemColors.Window;
             PlayPause.BackgroundImage = Properties.Resources.Play_Pause;
             PlayPause.BackgroundImageLayout = ImageLayout.Zoom;
@@ -321,6 +316,7 @@
             // skip
             // 
             skip.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            skip.AutoSize = true;
             skip.BackColor = SystemColors.Window;
             skip.BackgroundImage = Properties.Resources.Skip;
             skip.BackgroundImageLayout = ImageLayout.Zoom;
@@ -337,6 +333,7 @@
             // previous
             // 
             previous.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            previous.AutoSize = true;
             previous.BackColor = SystemColors.Window;
             previous.BackgroundImage = Properties.Resources.Previous;
             previous.BackgroundImageLayout = ImageLayout.Zoom;
@@ -355,10 +352,11 @@
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox1.ErrorImage = Properties.Resources.Khi_Player;
-            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Location = new Point(0, 16);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(470, 408);
+            pictureBox1.Padding = new Padding(5);
+            pictureBox1.Size = new Size(470, 451);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
@@ -395,11 +393,10 @@
             musicListView.HideSelection = true;
             musicListView.Location = new Point(90, 36);
             musicListView.Margin = new Padding(0);
-            musicListView.MaximumSize = new Size(380, 508);
             musicListView.Name = "musicListView";
             musicListView.ShowGroups = false;
             musicListView.ShowItemToolTips = true;
-            musicListView.Size = new Size(380, 508);
+            musicListView.Size = new Size(380, 567);
             musicListView.TabIndex = 8;
             musicListView.TileSize = new Size(360, 65);
             musicListView.UseCompatibleStateImageBehavior = false;
@@ -410,12 +407,10 @@
             musicListView.ItemSelectionChanged += musicListView_ItemSelectionChanged;
             musicListView.DragDrop += musicListView_DragDrop;
             musicListView.DragEnter += musicListView_DragEnter;
-            musicListView.DragOver += musicListView_DragOver;
             musicListView.Invalidated += musicListView_Invalidated;
             musicListView.KeyPress += musicListView_KeyPress;
             musicListView.MouseClick += musicListView_MouseClick;
             musicListView.MouseDown += musicListView_MouseDown;
-            musicListView.MouseMove += musicListView_MouseMove;
             // 
             // musicTitle
             // 
@@ -503,35 +498,33 @@
             playlistToolbar.Padding = new Padding(0, 50, 0, 0);
             playlistToolbar.RenderMode = ToolStripRenderMode.System;
             playlistToolbar.ShowItemToolTips = false;
-            playlistToolbar.Size = new Size(91, 527);
+            playlistToolbar.Size = new Size(91, 586);
             playlistToolbar.TabIndex = 10;
             playlistToolbar.Text = "Playlists";
             // 
             // playlistIdentifierLabel
             // 
-            playlistIdentifierLabel.AutoSize = false;
             playlistIdentifierLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            playlistIdentifierLabel.Font = new Font("Segoe UI", 9F);
             playlistIdentifierLabel.Name = "playlistIdentifierLabel";
-            playlistIdentifierLabel.Size = new Size(90, 25);
+            playlistIdentifierLabel.Size = new Size(90, 15);
             playlistIdentifierLabel.Text = "Current Playlist:";
             // 
             // currentPlaylistLabel
             // 
-            currentPlaylistLabel.AutoSize = false;
             currentPlaylistLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
             currentPlaylistLabel.Name = "currentPlaylistLabel";
-            currentPlaylistLabel.Size = new Size(90, 25);
+            currentPlaylistLabel.Size = new Size(90, 15);
             currentPlaylistLabel.Text = "All Songs";
             // 
             // playlistLabel
             // 
-            playlistLabel.AutoSize = false;
             playlistLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
             playlistLabel.Image = (Image)resources.GetObject("playlistLabel.Image");
             playlistLabel.ImageTransparentColor = Color.Magenta;
             playlistLabel.Margin = new Padding(0, 20, 0, 20);
             playlistLabel.Name = "playlistLabel";
-            playlistLabel.Size = new Size(90, 25);
+            playlistLabel.Size = new Size(90, 15);
             playlistLabel.Text = "Playlists:";
             // 
             // allSongsPlaylist
@@ -594,7 +587,7 @@
             mediaPlayerPanel.Location = new Point(473, 20);
             mediaPlayerPanel.Margin = new Padding(0);
             mediaPlayerPanel.Name = "mediaPlayerPanel";
-            mediaPlayerPanel.Size = new Size(473, 524);
+            mediaPlayerPanel.Size = new Size(473, 583);
             mediaPlayerPanel.TabIndex = 11;
             // 
             // borderLabel
@@ -603,7 +596,7 @@
             borderLabel.BackColor = SystemColors.Window;
             borderLabel.FlatStyle = FlatStyle.Flat;
             borderLabel.Font = new Font("Segoe UI", 6F, FontStyle.Bold);
-            borderLabel.Location = new Point(92, 413);
+            borderLabel.Location = new Point(92, 472);
             borderLabel.Margin = new Padding(0);
             borderLabel.Name = "borderLabel";
             borderLabel.Size = new Size(273, 8);
@@ -617,7 +610,7 @@
             songAlbumLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             songAlbumLabel.FlatStyle = FlatStyle.Flat;
             songAlbumLabel.Font = new Font("Segoe UI", 14F);
-            songAlbumLabel.Location = new Point(1, 489);
+            songAlbumLabel.Location = new Point(1, 548);
             songAlbumLabel.Margin = new Padding(1);
             songAlbumLabel.Name = "songAlbumLabel";
             songAlbumLabel.Padding = new Padding(1, 0, 8, 0);
@@ -630,7 +623,7 @@
             songArtistLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             songArtistLabel.FlatStyle = FlatStyle.Flat;
             songArtistLabel.Font = new Font("Segoe UI", 14F);
-            songArtistLabel.Location = new Point(1, 455);
+            songArtistLabel.Location = new Point(1, 514);
             songArtistLabel.Margin = new Padding(1);
             songArtistLabel.Name = "songArtistLabel";
             songArtistLabel.Padding = new Padding(1, 0, 8, 0);
@@ -643,7 +636,7 @@
             songTitleLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             songTitleLabel.FlatStyle = FlatStyle.Flat;
             songTitleLabel.Font = new Font("Segoe UI", 14F);
-            songTitleLabel.Location = new Point(1, 422);
+            songTitleLabel.Location = new Point(1, 481);
             songTitleLabel.Margin = new Padding(1);
             songTitleLabel.Name = "songTitleLabel";
             songTitleLabel.Padding = new Padding(1, 0, 8, 0);
@@ -659,14 +652,14 @@
             lyricsTextBox.BorderStyle = BorderStyle.None;
             lyricsTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lyricsTextBox.ForeColor = SystemColors.WindowText;
-            lyricsTextBox.Location = new Point(1, 0);
+            lyricsTextBox.Location = new Point(3, 27);
             lyricsTextBox.Margin = new Padding(0);
             lyricsTextBox.MinimumSize = new Size(285, 31);
             lyricsTextBox.Multiline = true;
             lyricsTextBox.Name = "lyricsTextBox";
             lyricsTextBox.ReadOnly = true;
             lyricsTextBox.ScrollBars = ScrollBars.Vertical;
-            lyricsTextBox.Size = new Size(470, 386);
+            lyricsTextBox.Size = new Size(470, 445);
             lyricsTextBox.TabIndex = 8;
             lyricsTextBox.TextAlign = HorizontalAlignment.Center;
             lyricsTextBox.Visible = false;
@@ -674,6 +667,7 @@
             // 
             // musicControlBar
             // 
+            musicControlBar.AutoSize = true;
             musicControlBar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             musicControlBar.BackColor = SystemColors.Window;
             musicControlBar.Controls.Add(stopButton);
@@ -689,7 +683,7 @@
             musicControlBar.Controls.Add(previous);
             musicControlBar.Controls.Add(skip);
             musicControlBar.Dock = DockStyle.Bottom;
-            musicControlBar.Location = new Point(0, 544);
+            musicControlBar.Location = new Point(0, 603);
             musicControlBar.Margin = new Padding(0);
             musicControlBar.MinimumSize = new Size(0, 48);
             musicControlBar.Name = "musicControlBar";
@@ -699,6 +693,7 @@
             // stopButton
             // 
             stopButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            stopButton.AutoSize = true;
             stopButton.BackColor = SystemColors.Window;
             stopButton.BackgroundImage = Properties.Resources.Stop_Light_Mode;
             stopButton.BackgroundImageLayout = ImageLayout.Zoom;
@@ -715,6 +710,7 @@
             // toggleShuffle
             // 
             toggleShuffle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            toggleShuffle.AutoSize = true;
             toggleShuffle.BackColor = SystemColors.Window;
             toggleShuffle.BackgroundImage = Properties.Resources.Shuffle_Light_Mode;
             toggleShuffle.BackgroundImageLayout = ImageLayout.Zoom;
@@ -732,10 +728,11 @@
             // volumeLabel
             // 
             volumeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            volumeLabel.AutoSize = true;
             volumeLabel.Location = new Point(792, 28);
             volumeLabel.Margin = new Padding(2, 0, 2, 0);
             volumeLabel.Name = "volumeLabel";
-            volumeLabel.Size = new Size(35, 19);
+            volumeLabel.Size = new Size(25, 15);
             volumeLabel.TabIndex = 13;
             volumeLabel.Text = "100";
             volumeLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -743,7 +740,7 @@
             // songLengthLabel
             // 
             songLengthLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            songLengthLabel.Location = new Point(884, 3);
+            songLengthLabel.Location = new Point(896, 3);
             songLengthLabel.Margin = new Padding(2, 0, 2, 0);
             songLengthLabel.Name = "songLengthLabel";
             songLengthLabel.Size = new Size(39, 16);
@@ -779,6 +776,7 @@
             // toggleLoop
             // 
             toggleLoop.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            toggleLoop.AutoSize = true;
             toggleLoop.BackColor = SystemColors.Window;
             toggleLoop.BackgroundImage = Properties.Resources.loop;
             toggleLoop.BackgroundImageLayout = ImageLayout.Zoom;
@@ -804,7 +802,7 @@
             seekBar.Margin = new Padding(8, 2, 8, 2);
             seekBar.Maximum = 0;
             seekBar.Name = "seekBar";
-            seekBar.Size = new Size(840, 19);
+            seekBar.Size = new Size(845, 19);
             seekBar.SmallChange = 0;
             seekBar.TabIndex = 12;
             seekBar.TickStyle = TickStyle.None;
@@ -831,26 +829,26 @@
             // 
             // searchMusicListView
             // 
+            searchMusicListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             searchMusicListView.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             searchMusicListView.BorderStyle = BorderStyle.None;
-            searchMusicListView.Location = new Point(91, 20);
+            searchMusicListView.Location = new Point(90, 20);
             searchMusicListView.Margin = new Padding(0);
             searchMusicListView.Name = "searchMusicListView";
             searchMusicListView.PlaceholderText = "Search Using Title, Artist, or Album";
-            searchMusicListView.Size = new Size(382, 16);
+            searchMusicListView.Size = new Size(385, 16);
             searchMusicListView.TabIndex = 13;
-            searchMusicListView.TextChanged += searchMusicListView_TextChanged;
             searchMusicListView.KeyDown += searchMusicListView_KeyDown;
-            searchMusicListView.KeyPress += searchMusicListView_KeyPress;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
+            AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = SystemColors.Window;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(946, 602);
+            ClientSize = new Size(946, 661);
             Controls.Add(searchMusicListView);
             Controls.Add(musicControlBar);
             Controls.Add(mediaPlayerPanel);
@@ -861,7 +859,7 @@
             ForeColor = SystemColors.WindowText;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2, 3, 2, 3);
-            MinimumSize = new Size(962, 641);
+            MinimumSize = new Size(962, 700);
             Name = "Form1";
             Text = "Khi Player";
             FormClosing += Form1_FormClosing;
@@ -876,6 +874,7 @@
             mediaPlayerPanel.ResumeLayout(false);
             mediaPlayerPanel.PerformLayout();
             musicControlBar.ResumeLayout(false);
+            musicControlBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)volumeBar).EndInit();
             ((System.ComponentModel.ISupportInitialize)seekBar).EndInit();
             ResumeLayout(false);
@@ -891,66 +890,66 @@
         public PictureBox pictureBox1;
         public Button Rescan;
         public Button clearListButton;
-        private Button button1;
+        public Button button1;
         public ListView musicListView;
         private ColumnHeader musicTitle;
         private ColumnHeader musicArtist;
         private ColumnHeader musicAlbum;
         private TabPage tabPage1;
-        private ToolStripButton addPlaylistButton;
-        private ToolStripLabel playlistLabel;
-        private Panel mediaPlayerPanel;
-        private ToolStripDropDownButton listToolStripMenuItem;
+        public ToolStripButton addPlaylistButton;
+        public ToolStripLabel playlistLabel;
+        public Panel mediaPlayerPanel;
+        public ToolStripDropDownButton listToolStripMenuItem;
         //private ToolStripMenuItem Rescan;
-        private ToolStripMenuItem clearListMenuItem;
-        private ToolStripMenuItem RescanMenuItem;
-        private ToolStripMenuItem ClearListItem;
-        private Button toggleLoop;
-        private ContextMenuStrip rightClickMenu;
-        private ToolStripMenuItem removeItemButton;
-        private ToolStripDropDownButton viewToolStripMenuItem;
-        private ToolStripMenuItem showLyricsMenuItem;
-        private ToolStripMenuItem showAlbumArtMenuItem;
-        private Panel musicControlBar;
-        private ProgressBar progressBar1;
-        private TrackBar volumeBar;
-        private ToolStripMenuItem editItemTagsButton;
-        private ToolStripMenuItem showItemInfoButton;
-        private ToolStripMenuItem showLargeIconMenuItem;
-        private ToolStripMenuItem showDetailsMenuItem;
+        public ToolStripMenuItem clearListMenuItem;
+        public ToolStripMenuItem RescanMenuItem;
+        public ToolStripMenuItem ClearListItem;
+        public Button toggleLoop;
+        public ContextMenuStrip rightClickMenu;
+        public ToolStripMenuItem removeItemButton;
+        public ToolStripDropDownButton viewToolStripMenuItem;
+        public ToolStripMenuItem showLyricsMenuItem;
+        public ToolStripMenuItem showAlbumArtMenuItem;
+        public Panel musicControlBar;
+        public ProgressBar progressBar1;
+        public TrackBar volumeBar;
+        public ToolStripMenuItem editItemTagsButton;
+        public ToolStripMenuItem showItemInfoButton;
+        public ToolStripMenuItem showLargeIconMenuItem;
+        public ToolStripMenuItem showDetailsMenuItem;
         public ImageList artListImageList;
         public ToolTip songToolTip;
         public TrackBar seekBar;
         public System.Windows.Forms.Timer songSeekTimer;
-        private Label songLengthLabel;
-        private Label currentTimeLabel;
-        private Label volumeLabel;
+        public Label songLengthLabel;
+        public Label currentTimeLabel;
+        public Label volumeLabel;
         public System.Windows.Forms.Timer MemoryManageTimer;
-        private Label songTitleLabel;
-        private Label songAlbumLabel;
-        private Label songArtistLabel;
-        private Label borderLabel;
-        private ToolStripMenuItem addFolderToolStripMenuItem;
-        private ToolStripMenuItem darkModeMenuItem;
+        public Label songTitleLabel;
+        public Label songAlbumLabel;
+        public Label songArtistLabel;
+        public Label borderLabel;
+        public ToolStripMenuItem addFolderToolStripMenuItem;
+        public ToolStripMenuItem darkModeMenuItem;
         public TextBox lyricsTextBox;
-        private ToolStripMenuItem showTileViewMenuItem;
+        public ToolStripMenuItem showTileViewMenuItem;
         public ToolStrip playlistToolbar;
         public ToolStripButton allSongsPlaylist;
         public ToolStripTextBox renameTextBox;
         public ToolStripButton editPlaylistButton;
         public ToolStrip userBar;
         public TextBox searchMusicListView;
-        private ToolStripMenuItem SortListMenuItem;
-        private ToolStripMenuItem sortListTitleMenuItem;
-        private ToolStripMenuItem sortListArtistMenuItem;
-        private ToolStripMenuItem sortListAlbumMenuItem;
-        private Button toggleShuffle;
+        public ToolStripMenuItem SortListMenuItem;
+        public ToolStripMenuItem sortListTitleMenuItem;
+        public ToolStripMenuItem sortListArtistMenuItem;
+        public ToolStripMenuItem sortListAlbumMenuItem;
+        public Button toggleShuffle;
         public Button stopButton;
         public ToolStripMenuItem playMenuItem;
         public ToolStripMenuItem addToPlaylistButton;
-        private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripLabel playlistIdentifierLabel;
-        private ToolStripLabel currentPlaylistLabel;
+        public ToolStripMenuItem toolStripMenuItem1;
+        public ToolStripLabel playlistIdentifierLabel;
+        public ToolStripLabel currentPlaylistLabel;
         public ToolStripButton editLyricsToolStripButton;
         public ToolStripButton applyEditStripButton;
     }
