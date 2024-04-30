@@ -42,22 +42,15 @@ namespace Khi_Player
         /// </summary>
         public Form1()
         {
-
             InitializeComponent();
-
             DarkTitleBarClass.UseImmersiveDarkMode(Handle, true);
-
-
             musicListView.LargeImageList = new ImageList
             {
                 ImageSize = new System.Drawing.Size(60, 60)
             };
-
             searchMusicListView.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             searchMusicListView.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
             List<string?>? existingDatabases = new List<string?>();
-
             string[] tempExistingDatabases = System.IO.Directory.GetFiles(applicationPath, "*.xml*", SearchOption.TopDirectoryOnly);
             string? tempPath;
             foreach (string? database in tempExistingDatabases)
@@ -68,24 +61,45 @@ namespace Khi_Player
                     existingDatabases.Add(database);
                 }
             }
-
+            if (Settings1.Default.SortOrder != 3)
+            {
+                int order = Settings1.Default.SortOrder;
+                SortOrder = (SortOrders)order;
+                int sortColumn;
+                switch (order)
+                {
+                    case 0:
+                        //this is sort based on title
+                        sortColumn = 0;
+                        break;
+                    case 1:
+                        //this is sort based on artist
+                        sortColumn = 1;
+                        break;
+                    case 2:
+                        //this is sort based on album
+                        sortColumn = 2;
+                        break;
+                    default:
+                        //this is sort based on title
+                        sortColumn = 0;
+                        break;
+                }
+            }
             KhiEditor = new FormEditor(this);
-
             if (File.Exists(allMusicDataBase))
             {
                 string[][]? info;
                 Image[]? arts;
-                (info, arts) = AudioDataBase.MainDataBaseIni();
+                (info, arts) = AudioDataBase.MainDataBaseIni(SortOrder);
                 if (info != null)
                 {
                     allMusicInfo = (string[][]?)info.Clone();
                     allMusicArts = (Image[]?)arts.Clone();
                     FormEditor.PopulateListView(ref musicListView, ref allMusicInfo, ref allMusicArts, false);
-
                     FormEditor.SearchBarAutoCompleteSource(allMusicInfo);
-
                     KhiPlayer = new PlayBackFunction();
-
+                 
                     allMusicArts = null;
                     arts = null;
                     info = null;
@@ -95,14 +109,11 @@ namespace Khi_Player
                     string[][]? dataBaseInfo;
                     Image[]? Arts;
 
-                    (dataBaseInfo, Arts) = FilterDuplicates.TryRepairingDataBase();
+                    (dataBaseInfo, Arts) = FilterDuplicates.TryRepairingDataBase(SortOrder);
                     allMusicInfo = (string[][])dataBaseInfo.Clone();
                     Arts = (Image[]?)Arts.Clone();
-
                     FormEditor.PopulateListView(ref musicListView, ref allMusicInfo, ref Arts, false);
-
                     FormEditor.SearchBarAutoCompleteSource(allMusicInfo);
-
                     KhiPlayer = new PlayBackFunction();
 
                     allMusicArts = null;
@@ -122,9 +133,7 @@ namespace Khi_Player
         /// <param name="filePath"></param>
         public Form1(string filePath)
         {
-
             InitializeComponent();
-
         }
 
         public enum Playlists { allSongs, searchPlaylist, DynamicPlaylists };
@@ -182,7 +191,6 @@ namespace Khi_Player
         PlayBackFunction KhiPlayer;
         public static FormEditor KhiEditor;
 
-
         /// <summary>
         /// Creates a button using the playlistName, attaches it to a common event handler
         /// and adds it to the playlistToolbar
@@ -201,7 +209,6 @@ namespace Khi_Player
             newPlaylistButton.Enabled = true;
             newPlaylistButton.Visible = true;
             newPlaylistButton.Tag = (string)playlistName;
-            //newPlaylistButton.Tag = ((int)Playlists.DynamicPlaylists);
 
             int index = playlistToolbar.Items.Count - 3; //inserts it before the rename textbox
             playlistToolbar.Items.Insert(index, newPlaylistButton);
@@ -241,7 +248,6 @@ namespace Khi_Player
                 addToPlaylistButton.Enabled = true;
                 addToPlaylistButton.Visible = true;
             }
-
         }
 
         /// <summary>
@@ -250,7 +256,6 @@ namespace Khi_Player
         /// </summary>
         public class FormEditor
         {
-
             public static Form1 CurrentForm;
 
             /// <summary>
@@ -436,7 +441,6 @@ namespace Khi_Player
                 }
             }
 
-
             /// <summary>
             /// to create the buttons for the dynamically created playlists
             /// </summary>
@@ -460,11 +464,8 @@ namespace Khi_Player
                     XmlDocument playlistDatabase;
                     XmlElement playlistSongs;  //the document root node
                     string? playlistName;
-
-
                     List<string>? playlistNames = new List<string>();
                     int i = 1;
-
                     foreach (string? playlistPath in existingDatabases)
                     {
                         playlistDatabase = new XmlDocument();
@@ -474,7 +475,6 @@ namespace Khi_Player
                         playlistNames.Add(playlistName);
                         CurrentForm.CreateDynamicPlaylistButton(playlistName);
                         playlistDatabase = null;
-
                     }
                 }
             }
@@ -548,7 +548,6 @@ namespace Khi_Player
                     }
                     listview.EndUpdate();
                 }
-
             }
 
             /// <summary>
@@ -560,7 +559,6 @@ namespace Khi_Player
                 List<string?> tempTips = new List<string?>();
                 await Task.Run(() =>
                 {
-
                     foreach (string[]? music in playlist)
                     {
                         tempTips.Add(music[0]);
@@ -568,13 +566,9 @@ namespace Khi_Player
                         tempTips.Add(music[2]);
                     }
                 });
-
                 CurrentForm.searchMusicListView.AutoCompleteCustomSource.AddRange(tempTips.ToArray());
                 tempTips = null;
-
             }
-
-
         }
 
         /// <summary>
@@ -599,11 +593,9 @@ namespace Khi_Player
                     {
                         attribute = DWMWA_USE_IMMERSIVE_DARK_MODE;
                     }
-
                     int useImmersiveDarkMode = enabled ? 1 : 0;
                     return DwmSetWindowAttribute(handle, attribute, ref useImmersiveDarkMode, sizeof(int)) == 0;
                 }
-
                 return false;
             }
 
@@ -672,15 +664,12 @@ namespace Khi_Player
                     }
                     // to get bitrate
                     bitrate = musicTags.Properties.AudioBitrate.ToString() + "kbps";
-
                     //to get sampling rate
                     sampleRate = musicTags.Properties.AudioSampleRate.ToString() + " Hz";
-
                     //to get encoding
                     var audioFileICodec = musicTags.Properties.Codecs.GetEnumerator();
                     audioFileICodec.MoveNext();
                     encoding = audioFileICodec.Current.Description;
-
                     // to get the number of audio channels (Mono vs Stereo)
                     channel = musicTags.Properties.AudioChannels.ToString();
 
@@ -754,9 +743,7 @@ namespace Khi_Player
                     {
                         lyrics = musicTags.Tag.Lyrics.ReplaceLineEndings();
                     }
-                    //
-
-
+                    
                     // all of the infos except art in a string array
                     musicInfo[0] = title;
                     musicInfo[1] = artist;
@@ -779,12 +766,8 @@ namespace Khi_Player
                         selectedAudioInfo[x] = (object)musicInfo[x];
                     }
                     selectedAudioInfo[13] = (object)art;
-
-
                 }
                 musicTags.Dispose();
-
-
             }
 
             ~AudioInfo()
@@ -842,10 +825,8 @@ namespace Khi_Player
                         format = null;
                         lyrics = null;
                     }
-
                     // Dispose unmanaged resources here.
                 }
-
                 disposed = true;
             }
         }
@@ -856,21 +837,19 @@ namespace Khi_Player
         /// </summary>
         public class FilterDuplicates
         {
-
             /// <summary>
-            /// checks the entire Database for duplicates, removes them, and reads the new database in complete mode
+            /// checks the entire Database for duplicates, removes them, and reads the new database in complete mode, optionally 
+            /// retyrnung the info sorted
             /// </summary>
-            /// <param name="allSongsListView"></param>
+            /// <param name="sort"></param>
             /// <returns></returns>
-            public static (string[][]?, Image[]?) TryRepairingDataBase()
+            public static (string[][]?, Image[]?) TryRepairingDataBase(SortOrders sort = SortOrders.CustomSort)
             {
                 CheckDataBaseAndRemoveDuplicates();
-
                 string[][]? checkedDataBaseInfo;
-                //List<string[]> CheckedFilesList = new List<string[]>();
                 Image[]? Arts;
-
                 checkedDataBaseInfo = AudioDataBase.ReadAudioDataBase("complete");
+                if (sort != SortOrders.CustomSort) { checkedDataBaseInfo = PlayList.SortPlaylist(checkedDataBaseInfo, (int)sort); }
                 Arts = AudioDataBase.GetMusicThumbnails(checkedDataBaseInfo);
                 return (checkedDataBaseInfo, Arts);
             }
@@ -882,9 +861,7 @@ namespace Khi_Player
             {
                 bool duplicatesFound = false;
                 string[][] dataBaseInfo = AudioDataBase.ReadAudioDataBase("complete");
-
                 string[]? artFileNames;
-
                 string[]? allArtFilePaths = new string[dataBaseInfo.Length];
                 List<string> tempArtsPaths = new List<string>();
 
@@ -900,7 +877,6 @@ namespace Khi_Player
                     tempArtsPaths = null;
 
                     List<string> artsToRemove = new List<string>();
-
                     XmlDocument MusicDataBase = new XmlDocument();
                     XmlElement AllSongs;  //the document root node
                     MusicDataBase.Load(allMusicDataBase);
@@ -918,21 +894,28 @@ namespace Khi_Player
                                 if (g == 1) { continue; }
                                 isDuplicate = true;
                                 duplicatesFound = true;
-
                                 AllSongs.RemoveChild(AllSongs.ChildNodes[i]);
-
                                 //For removing the pic
                                 artsToRemove.Add(music[4]);
                                 artsToRemove.Add(music[5]);
                             }
-
-
+                            else if (AllSongs.ChildNodes[i].ChildNodes[0].InnerText == music[0] 
+                                    && AllSongs.ChildNodes[i].ChildNodes[1].InnerText == music[1] 
+                                    && AllSongs.ChildNodes[i].ChildNodes[2].InnerText == music[2])
+                            {
+                                g++;
+                                if (g == 1) { continue; }
+                                isDuplicate = true;
+                                duplicatesFound = true;
+                                AllSongs.RemoveChild(AllSongs.ChildNodes[i]);
+                                //For removing the pic
+                                artsToRemove.Add(music[4]);
+                                artsToRemove.Add(music[5]);
+                            }
                             i--; // since the nodes will rearrange themselves, if the counter continues normally
                                  // it will skip an item, hence the need for this
                         }
-
                     }
-
                     if (artsToRemove.Count > 0)
                     {
                         foreach (var artfile in artsToRemove)
@@ -945,12 +928,10 @@ namespace Khi_Player
                     }
 
                     MusicDataBase.Save(AudioDataBase.allMusicDataBase);
-
+                    MusicDataBase = null;
                     artsToRemove = null;
                 });
-
                 GC.Collect();
-
             }
 
             public static string[]? FilterPlaylistDuplicates(string[] selectedMusicInfo, string? playlistPath)
@@ -973,6 +954,13 @@ namespace Khi_Player
                             isDuplicate = true;
                             break;
                         }
+                        else if (playlistSongs.ChildNodes[i].ChildNodes[0].InnerText == selectedMusicInfo[0]
+                                && playlistSongs.ChildNodes[i].ChildNodes[1].InnerText == selectedMusicInfo[1]
+                                && playlistSongs.ChildNodes[i].ChildNodes[2].InnerText == selectedMusicInfo[2])
+                        {
+                            isDuplicate = true;
+                            break;
+                        }
                     }
                     if (isDuplicate == false)
                     {
@@ -987,7 +975,6 @@ namespace Khi_Player
                 {
                     checkedMusicInfo = selectedMusicInfo;
                 }
-
                 return checkedMusicInfo;
             }
 
@@ -1001,13 +988,17 @@ namespace Khi_Player
             {
                 List<string[]> tempChecked = new List<string[]>();
                 string[][]? checkedMusicInfo;
-
                 List<string[]> filesList = new List<string[]>();
                 filesList.Clear();
 
-
-                if (System.IO.File.Exists(playlistPath))
+                if (System.IO.File.Exists(playlistPath) && selectedMusicsInfo != null && selectedMusicsInfo.Length > 0)
                 {
+                    if (selectedMusicsInfo[0] == null) 
+                    {
+                        int i = 0;
+                        checkedMusicInfo = selectedMusicsInfo;
+                        return checkedMusicInfo;
+                    }
                     XmlDocument playlistDataBase = new XmlDocument();
                     XmlElement playlistSongs;  //the document root node
                     playlistDataBase.Load(playlistPath);
@@ -1024,24 +1015,26 @@ namespace Khi_Player
                                 isDuplicate = true;
                                 break;
                             }
+                            else if (playlistSongs.ChildNodes[i].ChildNodes[0].InnerText == music[0]
+                                && playlistSongs.ChildNodes[i].ChildNodes[1].InnerText == music[1]
+                                && playlistSongs.ChildNodes[i].ChildNodes[2].InnerText == music[2])
+                            {
+                                isDuplicate = true;
+                                break;
+                            }
                         }
                         if (isDuplicate == false)
                         {
                             filesList.Add(music);
                         }
                     }
-
                     checkedMusicInfo = filesList.ToArray();
                 }
-
                 else
                 {
                     int i = 0;
                     checkedMusicInfo = (string[][]?)selectedMusicsInfo.Clone();
-
-
                 }
-
                 return checkedMusicInfo;
             }
         }
@@ -1099,8 +1092,9 @@ namespace Khi_Player
                         foreach (string? directory in directories)
                         {
                             //to skip system folders. there are probably better ways to do this, but for now this should suffice
-                            if (directory.Contains("Windows") || directory.Contains("Program Files (x86)") || directory.Contains("Program Files") || directory.Contains("PerfLogs") || directory.Contains("ProgramData") || directory.Contains("Recycle.Bin")
-                            || directory.Contains("Config") || directory.Contains("Application Data") || directory.Contains("System") || directory.Contains("Volume Information"))
+                            if (directory.Contains("Windows") || directory.Contains("Program Files (x86)") || directory.Contains("Program Files") || directory.Contains("PerfLogs") 
+                                || directory.Contains("ProgramData") || directory.Contains("Recycle.Bin") || directory.Contains("Config") || directory.Contains("Application Data") 
+                                || directory.Contains("System") || directory.Contains("Volume Information"))
                             { continue; }
                             else
                             {
@@ -1157,7 +1151,6 @@ namespace Khi_Player
                 AddedMusicArts = null;
                 AddedMusicInfo = null;
             }
-
 
             /// <summary>
             /// scans the system hard drives, first for available and ready drives, and then goes through the directories in search of audio 
@@ -1242,7 +1235,6 @@ namespace Khi_Player
                         allDirectories = null;
                     }
 
-
                     //for disposal
                     allDrives = null;
                     availableDrives = null;
@@ -1252,7 +1244,7 @@ namespace Khi_Player
                 string[][]? AddedMusicInfo;
                 Image[]? AddedMusicArts;
 
-                (AddedMusicInfo, AddedMusicArts) = AudioDataBase.AddSongsToAudioDataBase(addedFiles, true);
+                (AddedMusicInfo, AddedMusicArts) = AudioDataBase.AddSongsToAudioDataBase(addedFiles, true, SortOrder);
                 allMusicInfo = (string[][]?)AddedMusicInfo.Clone();
                 allMusicArts = (Image[]?)AddedMusicArts.Clone();
 
@@ -1290,122 +1282,128 @@ namespace Khi_Player
                 //1-title 2-artist 3-album 4-path 5- art path 6-thumbnail path 
 
                 string[][] tempMusicInfos = new string[draggedMusicsPaths.Length][];
-
-                int i = 0;
-                foreach (var audioPath in draggedMusicsPaths)
+                try
                 {
-                    string? artist, album;
-                    string title, path; // these can't be empty
-
-                    string[] musicInfo = new string[4];
-
-                    using (TagLib.File musicTags = TagLib.File.Create(audioPath, TagLib.ReadStyle.PictureLazy))
+                    int i = 0;
+                    foreach (var audioPath in draggedMusicsPaths)
                     {
-                        //Check to see if the file or file tags are corrupted
-                        if (musicTags.PossiblyCorrupt)
+                        string? artist, album;
+                        string title, path; // these can't be empty
+
+                        string[] musicInfo = new string[4];
+
+                        using (TagLib.File musicTags = TagLib.File.Create(audioPath, TagLib.ReadStyle.None))
                         {
-                            var corruptionReasons = musicTags.CorruptionReasons.ToArray();
-                            // Add that it should return this string array if it is corrupted
-                        }
-                        else
-                        {
-                            //might bring these back, idk, so not gonna remove them for now
-                            /*
-                                //getting a picture of the audio file
-                                var tempPics = musicTags.Tag.Pictures;
-
-                                if (tempPics.Length > 0)
-                                {
-                                    using (MemoryStream picConverter = new MemoryStream(tempPics[0].Data.Data))
-                                    {
-                                        art = Image.FromStream(picConverter);
-                                    }
-                                }
-                                else { art = Properties.Resources.MusicArt_NoCover; }
-
-                                //to get the duration of the audio
-                                using (AudioFileReader durationReader = new AudioFileReader(audioPath))
-                                {
-                                    if (musicTags.Properties.Duration.Hours < 1)
-                                    {
-                                        var mins = durationReader.TotalTime.Minutes.ToString();
-                                        var secs = durationReader.TotalTime.Seconds.ToString("00");
-                                        duration = mins + ":" + secs;
-                                    }
-                                    else
-                                    {
-                                        var hours = durationReader.TotalTime.Hours.ToString();
-                                        var mins = durationReader.TotalTime.Minutes.ToString("00");
-                                        var secs = durationReader.TotalTime.Seconds.ToString("00");
-                                        duration = hours + ":" + mins + ":" + secs;
-                                    }
-                                }
-
-                                //to get track number in Album
-                                uint tempTrack = musicTags.Tag.Track;
-                                if (tempTrack == 0) { trackNumber = ""; }
-                                else { trackNumber = tempTrack.ToString(); }
-                            if (musicTags.Tag.Lyrics != null)
+                            //Check to see if the file or file tags are corrupted
+                            if (musicTags.PossiblyCorrupt)
                             {
-                                lyrics = musicTags.Tag.Lyrics.ReplaceLineEndings();
-                            }
-                            else { lyrics = ""; }
-                            */
-                            path = audioPath;
-
-                            if (musicTags.Tag.Title == null)
-                            {
-                                System.IO.FileInfo sth = new System.IO.FileInfo(path);
-                                title = (string)sth.Name.Clone();
-
-                                sth = null;
+                                var corruptionReasons = musicTags.CorruptionReasons.ToArray();
+                                // Add that it should return this string array if it is corrupted
                             }
                             else
                             {
-                                title = musicTags.Tag.Title;
-                            }
+                                //might bring these back, idk, so not gonna remove them for now
+                                /*
+                                    //getting a picture of the audio file
+                                    var tempPics = musicTags.Tag.Pictures;
 
-                            //for artists
-                            var allArtists = musicTags.Tag.Performers;
-                            if (allArtists.Length == 0)
-                            {
-                                artist = "";
-                            }
-                            else if (allArtists.Length > 1)
-                            {
-                                System.Windows.Forms.TextBox tempText = new System.Windows.Forms.TextBox();
-                                foreach (var oneartist in allArtists)
+                                    if (tempPics.Length > 0)
+                                    {
+                                        using (MemoryStream picConverter = new MemoryStream(tempPics[0].Data.Data))
+                                        {
+                                            art = Image.FromStream(picConverter);
+                                        }
+                                    }
+                                    else { art = Properties.Resources.MusicArt_NoCover; }
+
+                                    //to get the duration of the audio
+                                    using (AudioFileReader durationReader = new AudioFileReader(audioPath))
+                                    {
+                                        if (musicTags.Properties.Duration.Hours < 1)
+                                        {
+                                            var mins = durationReader.TotalTime.Minutes.ToString();
+                                            var secs = durationReader.TotalTime.Seconds.ToString("00");
+                                            duration = mins + ":" + secs;
+                                        }
+                                        else
+                                        {
+                                            var hours = durationReader.TotalTime.Hours.ToString();
+                                            var mins = durationReader.TotalTime.Minutes.ToString("00");
+                                            var secs = durationReader.TotalTime.Seconds.ToString("00");
+                                            duration = hours + ":" + mins + ":" + secs;
+                                        }
+                                    }
+
+                                    //to get track number in Album
+                                    uint tempTrack = musicTags.Tag.Track;
+                                    if (tempTrack == 0) { trackNumber = ""; }
+                                    else { trackNumber = tempTrack.ToString(); }
+                                if (musicTags.Tag.Lyrics != null)
                                 {
-                                    tempText.AppendText(oneartist);
-                                    tempText.AppendText(" ");
+                                    lyrics = musicTags.Tag.Lyrics.ReplaceLineEndings();
                                 }
-                                artist = (string?)tempText.Text.Clone();
-                                tempText.Dispose();
-                                allArtists = null;
-                            }
-                            else  //why? idk 
-                            { artist = (string?)musicTags.Tag.FirstPerformer.Clone(); }
+                                else { lyrics = ""; }
+                                */
+                                path = audioPath;
 
-                            //For Album
-                            if (musicTags.Tag.Album == null)
-                            {
-                                album = "";
-                            }
-                            else
-                            {
-                                album = (string?)musicTags.Tag.Album.Clone();
-                            }
+                                if (musicTags.Tag.Title == null)
+                                {
+                                    System.IO.FileInfo sth = new System.IO.FileInfo(path);
+                                    title = (string)sth.Name.Clone();
 
-                            musicInfo[0] = title;
-                            musicInfo[1] = artist;
-                            musicInfo[2] = album;
-                            musicInfo[3] = path;
-                            tempMusicInfos[i] = (string[]?)musicInfo.Clone();
+                                    sth = null;
+                                }
+                                else
+                                {
+                                    title = musicTags.Tag.Title;
+                                }
 
-                            musicTags.Dispose();
+                                //for artists
+                                var allArtists = musicTags.Tag.Performers;
+                                if (allArtists.Length == 0)
+                                {
+                                    artist = "";
+                                }
+                                else if (allArtists.Length > 1)
+                                {
+                                    System.Windows.Forms.TextBox tempText = new System.Windows.Forms.TextBox();
+                                    foreach (var oneartist in allArtists)
+                                    {
+                                        tempText.AppendText(oneartist);
+                                        tempText.AppendText(" ");
+                                    }
+                                    artist = (string?)tempText.Text.Clone();
+                                    tempText.Dispose();
+                                    allArtists = null;
+                                }
+                                else  //why? idk 
+                                { artist = (string?)musicTags.Tag.FirstPerformer.Clone(); }
+
+                                //For Album
+                                if (musicTags.Tag.Album == null)
+                                {
+                                    album = "";
+                                }
+                                else
+                                {
+                                    album = (string?)musicTags.Tag.Album.Clone();
+                                }
+
+                                musicInfo[0] = title;
+                                musicInfo[1] = artist;
+                                musicInfo[2] = album;
+                                musicInfo[3] = path;
+                                tempMusicInfos[i] = (string[]?)musicInfo.Clone();
+
+                                musicTags.Dispose();
+                            }
+                            i++;
                         }
-                        i++;
                     }
+                }
+                catch(Exception e)
+                {
+                    
                 }
                 string[][]? addedMusicInfo = (string[][]?)tempMusicInfos.Clone();
 
@@ -1535,117 +1533,113 @@ namespace Khi_Player
                 Image.GetThumbnailImageAbort myCallback = new Image.GetThumbnailImageAbort(ThumbnailCallback);
 
                 selectedMusicsData = (string[][]?)FilterDuplicates.FilterPlaylistDuplicates(selectedMusicsInfo, allMusicDataBase).Clone();
-
-                string[]? fileNames = new string[selectedMusicsData.Length];
-                List<string[]?> musicData = new List<string[]?>();
-
-                int i = 0;
-                foreach (string[] musicDataArray in selectedMusicsData)
+                if (selectedMusicsData.Length > 0)
                 {
+                    string[]? fileNames = new string[selectedMusicsData.Length];
+                    List<string[]?> musicData = new List<string[]?>();
 
-                    title = musicDataArray[0];
-                    artist = musicDataArray[1];
-                    album = musicDataArray[2];
-                    path = musicDataArray[3];
-
-                    var tempName = System.IO.Path.GetFileName(path).Split('.');
-                    int dotcount;
-                    TextBox name = new TextBox();
-                    if (tempName.Length > 2)
+                    int i = 0;
+                    foreach (string[] musicDataArray in selectedMusicsData)
                     {
-                        dotcount = tempName.Length - 1;
-                        for (int z = 0; z < dotcount; z++)
+                        title = musicDataArray[0];
+                        artist = musicDataArray[1];
+                        album = musicDataArray[2];
+                        path = musicDataArray[3];
+                        var tempName = System.IO.Path.GetFileName(path).Split('.');
+                        int dotcount;
+                        TextBox name = new TextBox();
+                        if (tempName.Length > 2)
                         {
-                            name.AppendText(tempName[z]);
-                            if (z + 1 < dotcount) { name.AppendText("."); }
+                            dotcount = tempName.Length - 1;
+                            for (int z = 0; z < dotcount; z++)
+                            {
+                                name.AppendText(tempName[z]);
+                                if (z + 1 < dotcount) { name.AppendText("."); }
+                            }
+                            fileNames[i] = (string?)name.Text.Clone();
                         }
-                        fileNames[i] = (string?)name.Text.Clone();
-
-                    }
-                    else
-                    {
-                        dotcount = 1;
-                        fileNames[i] = System.IO.Path.GetFileName(path).Split('.')[dotcount - 1];  //actually incomplete so it can be added to albumArtsPath
-                    }
-                    // FOR ART
-                    using (TagLib.File musicTags = TagLib.File.Create(path))
-                    {
-                        var tempPics = musicTags.Tag.Pictures;
-
-                        //MemoryStream picConverter = new MemoryStream(tempPics[0].Data.Data);
-                        MemoryStream picConverter = new MemoryStream();
-                        if (tempPics.Length > 0)
+                        else
                         {
-                            picConverter = new MemoryStream(tempPics[0].Data.Data);
-                            if (picConverter.CanRead == false || picConverter.CanWrite == false || tempPics[0].Type == TagLib.PictureType.NotAPicture)
+                            dotcount = 1;
+                            fileNames[i] = System.IO.Path.GetFileName(path).Split('.')[dotcount - 1];  //actually incomplete so it can be added to albumArtsPath
+                        }
+                        // FOR ART
+                        using (TagLib.File musicTags = TagLib.File.Create(path))
+                        {
+                            var tempPics = musicTags.Tag.Pictures;
+                            //MemoryStream picConverter = new MemoryStream(tempPics[0].Data.Data);
+                            MemoryStream picConverter = new MemoryStream();
+                            if (tempPics.Length > 0)
+                            {
+                                picConverter = new MemoryStream(tempPics[0].Data.Data);
+                                if (picConverter.CanRead == false || picConverter.CanWrite == false || tempPics[0].Type == TagLib.PictureType.NotAPicture)
+                                {
+                                    art = Khi_Player.Properties.Resources.Khi_Player;
+                                    thumbnail = Khi_Player.Properties.Resources.Khi_Player.GetThumbnailImage(60, 60, myCallback, 0);
+                                }
+                                else
+                                {
+                                    art = (Image)Image.FromStream(picConverter).Clone();
+                                    thumbnail = art.GetThumbnailImage(60, 60, myCallback, 0);
+                                }
+
+                                tempPics = null;
+                            }
+                            else
                             {
                                 art = Khi_Player.Properties.Resources.Khi_Player;
                                 thumbnail = Khi_Player.Properties.Resources.Khi_Player.GetThumbnailImage(60, 60, myCallback, 0);
                             }
-                            else
+                            musicTags.Dispose();
+                            string imagePath = albumArtsPath + fileNames[i] + ".bmp";
+                            string imageThumbnailPath = albumArtsThumbnailsPath + fileNames[i] + ".bmp";
+
+                            using (FileStream artSaver = new FileStream(imagePath, FileMode.Create, FileAccess.ReadWrite))
                             {
-                                art = (Image)Image.FromStream(picConverter).Clone();
-                                thumbnail = art.GetThumbnailImage(60, 60, myCallback, 0);
+                                art.Save(artSaver, art.RawFormat);
+                                artSaver.Dispose();
                             }
+                            fileNames[i] = imagePath;
 
-                            tempPics = null;
+                            //for saving thumbnails
+                            using (FileStream thumbnailSaver = new FileStream(imageThumbnailPath, FileMode.Create, FileAccess.ReadWrite))
+                            {
+                                thumbnail.Save(thumbnailSaver, art.RawFormat);
+                                thumbnailSaver.Dispose();
+                            }
+                            picConverter.Dispose();
+                            name.Dispose();
+                            
+                            string[]? songInfo = new string[6];
+                            songInfo[0] = (string?)title.Clone();
+                            songInfo[1] = (string?)artist.Clone();
+                            songInfo[2] = (string?)album.Clone();
+                            songInfo[3] = (string?)path.Clone();
+                            songInfo[4] = (string?)imagePath.Clone();
+                            songInfo[5] = (string?)imageThumbnailPath.Clone();
+                            musicData.Add(songInfo);
                         }
-                        else
-                        {
-                            art = Khi_Player.Properties.Resources.Khi_Player;
-                            thumbnail = Khi_Player.Properties.Resources.Khi_Player.GetThumbnailImage(60, 60, myCallback, 0);
-                        }
-                        musicTags.Dispose();
-                        string imagePath = albumArtsPath + fileNames[i] + ".bmp";
-                        string imageThumbnailPath = albumArtsThumbnailsPath + fileNames[i] + ".bmp";
-
-                        using (FileStream artSaver = new FileStream(imagePath, FileMode.Create, FileAccess.ReadWrite))
-                        {
-                            art.Save(artSaver, art.RawFormat);
-                            artSaver.Dispose();
-                        }
-                        fileNames[i] = imagePath;
-
-                        //for saving thumbnails
-                        using (FileStream thumbnailSaver = new FileStream(imageThumbnailPath, FileMode.Create, FileAccess.ReadWrite))
-                        {
-                            thumbnail.Save(thumbnailSaver, art.RawFormat);
-                            thumbnailSaver.Dispose();
-                        }
-                        picConverter.Dispose();
-                        name.Dispose();
-
-
-                        //"\\" + 
-
-                        string[]? songInfo = new string[6];
-                        songInfo[0] = (string?)title.Clone();
-                        songInfo[1] = (string?)artist.Clone();
-                        songInfo[2] = (string?)album.Clone();
-                        songInfo[3] = (string?)path.Clone();
-                        songInfo[4] = (string?)imagePath.Clone();
-                        songInfo[5] = (string?)imageThumbnailPath.Clone();
-                        musicData.Add(songInfo);
                     }
+                    selectedMusicsData = musicData.ToArray();
+                    XmlDataBaseWriter(selectedMusicsData, allMusicDataBase, "All Songs Playlist");
+                    int addedCount = selectedMusicsData.Count();
+
+                    //for disposal
+                    musicData.Clear();
+                    musicData = null;
+                    selectedMusicsData = null;
+                    selectedMusicsInfo = null;
+                    art = null;
+                    thumbnail = null;
+                    fileNames = null;
+                    title = null;
+                    artist = null;
+                    album = null;
+                    path = null;
+
+                    return addedCount;
                 }
-                selectedMusicsData = musicData.ToArray();
-                XmlDataBaseWriter(selectedMusicsData, allMusicDataBase, "All Songs Playlist");
-                int addedCount = selectedMusicsData.Count();
-
-                //for disposal
-                musicData.Clear();
-                musicData = null;
-                selectedMusicsData = null;
-                selectedMusicsInfo = null;
-                art = null;
-                thumbnail = null;
-                fileNames = null;
-                title = null;
-                artist = null;
-                album = null;
-                path = null;
-
-                return addedCount;
+                else { return 0; }
             }
 
             /// <summary>
@@ -1780,14 +1774,16 @@ namespace Khi_Player
 
                 // Duplicate Check
                 checkedPlaylistMusicData = FilterDuplicates.FilterPlaylistDuplicates(playlistMusicData, playlist);
-
-                await Task.Run(() =>
+                if (checkedPlaylistMusicData.Length > 0)
                 {
-                    XmlDataBaseWriter(checkedPlaylistMusicData, playlist, nameOfPlaylist);
-                });
+                    await Task.Run(() =>
+                    {
+                        XmlDataBaseWriter(checkedPlaylistMusicData, playlist, nameOfPlaylist);
+                    });
 
-                //for disposal
-                checkedPlaylistMusicData = null;
+                    //for disposal
+                    checkedPlaylistMusicData = null;
+                }
             }
 
             /// <summary>
@@ -1802,11 +1798,14 @@ namespace Khi_Player
 
                 // Duplicate Check
                 checkedPlaylistMusicData = FilterDuplicates.FilterPlaylistDuplicates(playlistMusicData, playlist);
-                //write to data base
-                XmlDataBaseWriter(checkedPlaylistMusicData, playlist, nameOfPlaylist);
+                if (checkedPlaylistMusicData.Length > 0)
+                {
+                    //write to data base
+                    XmlDataBaseWriter(checkedPlaylistMusicData, playlist, nameOfPlaylist);
 
-                //for disposal
-                checkedPlaylistMusicData = null;
+                    //for disposal
+                    checkedPlaylistMusicData = null;
+                }
             }
 
 
@@ -2349,15 +2348,9 @@ namespace Khi_Player
 
                 for (int i = 0; i < musicData.Length; i++)
                 {
-
                     if (System.IO.File.Exists(musicData[i][5]))
                     {
                         thumbnail = Image.FromFile(musicData[i][5]);
-                        /* using (System.IO.FileStream imageStream = new System.IO.FileStream(musicData[i][5], FileMode.Open, FileAccess.Read))
-                         {
-                             thumbnail = (Image)Image.FromStream(imageStream).Clone();
-                             imageStream.Dispose();
-                         }*/
                         musicThumbnails[i] = (Image)thumbnail.Clone();
                         thumbnail = null;
                     }
@@ -2419,14 +2412,7 @@ namespace Khi_Player
                             tempPics = null;
                             thumbnail = null;
                         }
-
                         thumbnail = Image.FromFile(musicData[i][5]);
-                        /*
-                        using (System.IO.FileStream imageStream = new System.IO.FileStream(musicData[i][5], FileMode.Open))
-                        {
-                            thumbnail = (Image)Image.FromStream(imageStream).Clone();
-                            imageStream.Dispose();
-                        }4*/
                         musicThumbnails[i] = (Image)thumbnail.Clone();
 
                         thumbnail = null;
@@ -2445,14 +2431,24 @@ namespace Khi_Player
             public static (string[][]?, Image[]?) AddSongsToAudioDataBase(string[]? songPaths, bool readDataBaseFully = false, SortOrders sort = SortOrders.CustomSort)
             {
                 string[][]? addedMusicInfoIncomplete = GetAudioFilesInfo(songPaths);
-                int AddedSongCount = WriteAudioDataBase(addedMusicInfoIncomplete);
-
-                if (readDataBaseFully == false)
+                if (addedMusicInfoIncomplete != null && addedMusicInfoIncomplete.Length > 0 && addedMusicInfoIncomplete[0] != null)
                 {
-                    string[][]? AddedMusicInfo = ReadAudioDataBase("added", AddedSongCount);
-                    if (sort != SortOrders.CustomSort) { AddedMusicInfo = PlayList.SortPlaylist(AddedMusicInfo, (int)sort); }
-                    Image[]? AddedMusicArts = GetMusicThumbnails(AddedMusicInfo);
-                    return (AddedMusicInfo, AddedMusicArts);
+                    int AddedSongCount = WriteAudioDataBase(addedMusicInfoIncomplete);
+
+                    if (readDataBaseFully == false)
+                    {
+                        string[][]? AddedMusicInfo = ReadAudioDataBase("added", AddedSongCount);
+                        if (sort != SortOrders.CustomSort) { AddedMusicInfo = PlayList.SortPlaylist(AddedMusicInfo, (int)sort); }
+                        Image[]? AddedMusicArts = GetMusicThumbnails(AddedMusicInfo);
+                        return (AddedMusicInfo, AddedMusicArts);
+                    }
+                    else
+                    {
+                        string[][]? AllMusicInfo = ReadAudioDataBase("complete");
+                        if (sort != SortOrders.CustomSort) { AllMusicInfo = PlayList.SortPlaylist(AllMusicInfo, (int)sort); }
+                        Image[]? AllMusicArts = GetMusicThumbnails(AllMusicInfo);
+                        return (AllMusicInfo, AllMusicArts);
+                    }
                 }
                 else
                 {
@@ -2461,7 +2457,6 @@ namespace Khi_Player
                     Image[]? AllMusicArts = GetMusicThumbnails(AllMusicInfo);
                     return (AllMusicInfo, AllMusicArts);
                 }
-
             }
 
             /// <summary>
@@ -2469,21 +2464,22 @@ namespace Khi_Player
             /// if the main data base exists and info exists, reads it, and return all the info and 
             /// the corresponding thumbnails, otherwise returns null. 
             /// </summary>
+            /// <param name="sort"></param>
             /// <returns></returns>
-            public static (string[][]?, Image[]?) MainDataBaseIni()
+            public static (string[][]?, Image[]?) MainDataBaseIni(SortOrders sort = SortOrders.CustomSort)
             {
                 string[][]? AllMusicInfo;
                 Image[]? AllMusicArts;
                 if (System.IO.File.Exists(allMusicDataBase))
                 {
-                    //RemoveInvalidDatabaseElements();
-
+                    RemoveInvalidDatabaseElements();
                     XmlDocument tempMusicDataBase = new XmlDocument();
                     tempMusicDataBase.Load(allMusicDataBase);
                     if (tempMusicDataBase.DocumentElement.ChildNodes.Count > 0)
                     {
                         tempMusicDataBase = null;
                         AllMusicInfo = ReadAudioDataBase("complete");
+                        if (sort != SortOrders.CustomSort) { AllMusicInfo = PlayList.SortPlaylist(AllMusicInfo, (int)sort); }
                         AllMusicArts = GetMusicThumbnails(AllMusicInfo);
                         return ((string[][]?)AllMusicInfo.Clone(), (Image[]?)AllMusicArts.Clone());
                     }
@@ -2496,102 +2492,8 @@ namespace Khi_Player
                 {
                     return (null, null);
                 }
-
             }
         }
-
-        /*
-        /// <summary>
-        /// for now useless. was used to get the audio info from the listview items instead of 
-        /// keeping all of the info in memory after the first time the data base was read. it's
-        /// not updated and maintained, though might use it again in the future, hence why it still exists
-        /// </summary>
-        public class KhiConverter : IDisposable
-        {
-            private bool disposed;
-            public string[][]? AllInfo { get; set; }
-            public string[]? artsPaths { get; set; }
-
-            /// <summary>
-            /// extracts a ListView control's Items and their Images
-            /// </summary>
-            public KhiConverter(ListView listView)
-            {
-                string[][]? tempAllmusic = new string[listView.Items.Count][];
-                int i = 0;
-                if (listView.Items.Count > 1)
-                {
-
-                    foreach (var musicItem in listView.Items)
-                    {
-                        string[] tempMusic = new string[4];
-                        //Image? tempArt;
-
-                        tempMusic[0] = listView.Items[i].SubItems[0].Text;
-                        tempMusic[1] = listView.Items[i].SubItems[1].Text;
-                        tempMusic[2] = listView.Items[i].SubItems[2].Text;
-                        tempMusic[3] = listView.Items[i].SubItems[3].Text;
-
-
-                        tempAllmusic[i] = tempMusic;
-
-                        i++;
-                    }
-
-                    //to dispose
-                    //tempMusic = null;
-                    //tempArt = null;
-
-                }
-
-                AllInfo = (string[][]?)tempAllmusic.Clone();
-                artsPaths = new string[allMusicInfo.Length];
-                i = 0;
-
-                //to dispose
-                tempAllmusic = null;
-            }
-
-            /// <summary>
-            /// Destructor
-            /// </summary>
-            ~KhiConverter()
-            {
-                this.Dispose(false);
-            }
-
-            /// <summary>
-            /// The dispose method that implements IDisposable.
-            /// </summary>
-            public void Dispose()
-            {
-                this.Dispose(true);
-                GC.SuppressFinalize(this);
-            }
-
-            /// <summary>
-            /// The virtual dispose method that allows
-            /// classes inherithed from this one to dispose their resources.
-            /// </summary>
-            /// <param name="disposing"></param>
-            protected virtual void Dispose(bool disposing)
-            {
-                if (!disposed)
-                {
-                    if (disposing)
-                    {
-                        // Dispose managed resources here.
-                        AllInfo = null;
-                        //AllMusicArts = null;
-                        artsPaths = null;
-                    }
-                }
-
-                disposed = true;
-            }
-
-        }
-        */
 
         /// <summary>
         /// Various Functions regarding the playlists, including getting the current playlist and sorting.
@@ -2599,7 +2501,6 @@ namespace Khi_Player
         /// </summary>
         public class PlayList
         {
-
             /// <summary>
             /// returns the mentioned playlist array or null if the playlist doesn't have a database for any reason.
             /// in case the chosen playlist is a dynamically added playlist, then the ictionary key which is the playlist's name is required
@@ -2672,17 +2573,14 @@ namespace Khi_Player
                 string[]? item = null;
                 string[][]? playlist;
 
-
                 if (CurrentPlaylist == Playlists.allSongs)
                 {
                     playlist = PlayList.GetCurrentPlaylist();
                 }
-
                 else if (CurrentPlaylist == Playlists.DynamicPlaylists)
                 {
                     playlist = PlayList.GetPlaylist(null, CurrentPlaylistName);
                 }
-
                 else
                 {
                     if (CurrentPlaylistName != null && PlaylistsDict.ContainsKey(CurrentPlaylistName))
@@ -2729,7 +2627,6 @@ namespace Khi_Player
                 }
                 Array.Sort(toBeSortedPlaylist, (x, y) => x[columnNumber].CompareTo(y[columnNumber]));
                 return toBeSortedPlaylist;
-
             }
 
             /// <summary>
@@ -2769,7 +2666,6 @@ namespace Khi_Player
                 PlaylistQueue = PlayList.GetCurrentPlaylist(CurrentPlaylistName);
             }
 
-
             public static void SongTimeValue(bool getFullLength = false)
             {
                 if (getFullLength)
@@ -2778,7 +2674,6 @@ namespace Khi_Player
                     { songLength = PlayBackFunction.song.TotalTime.ToString("hh\\:mm\\:ss"); }
                     else
                     { songLength = PlayBackFunction.song.TotalTime.ToString("mm\\:ss"); }
-                    //seekbarMax = Convert.ToInt32(PlayBackFunction.song.TotalTime.TotalSeconds);
                     seekbarMax = (int)Math.Round(PlayBackFunction.song.TotalTime.TotalSeconds, MidpointRounding.ToZero);
                 } 
                 if (song.CurrentTime.TotalSeconds <= song.TotalTime.TotalSeconds)
@@ -3113,11 +3008,7 @@ namespace Khi_Player
                         }
                         imageStream.Dispose();
                     }
-                    if (PlayBackFunction.song.TotalTime.Hours > 0)
-                    { songLength = PlayBackFunction.song.TotalTime.ToString("hh\\:mm\\:ss"); }
-                    else
-                    { songLength = PlayBackFunction.song.TotalTime.ToString("mm\\:ss"); }
-                    seekbarMax = (int)Math.Round(PlayBackFunction.song.TotalTime.TotalSeconds, MidpointRounding.ToZero);
+                    SongTimeValue(true);
 
                     try
                     {
@@ -3134,9 +3025,7 @@ namespace Khi_Player
                         System.Windows.Forms.MessageBox.Show("File Error, please remove this file from the application");
                         //throw;
                     }
-                }
-
-                
+                }               
             }
         }
 
@@ -3153,56 +3042,15 @@ namespace Khi_Player
                 FormEditor.DarkMode(false);
                 isDarkMode = false;
             }
-
+            /* // NOT WORKING FOR NOW, DON'T UNCOMMENT OR USE THIS CLASS
             //To Scan System
-            // MusicScanner.ScanSystemForAudioFiles();
-            // var tempImages = AudioDataBase.GetMusicThumbnails(allMusicInfo);
-            // FormEditor.PopulateListView(ref musicListView, ref allMusicInfo, ref tempImages, false);
-            // FormEditor.SearchBarAutoCompleteSource(allMusicInfo);
+            MusicScanner.ScanSystemForAudioFiles();
+            var tempImages = AudioDataBase.GetMusicThumbnails(allMusicInfo);
+            FormEditor.PopulateListView(ref musicListView, ref allMusicInfo, ref tempImages, false);
+            FormEditor.SearchBarAutoCompleteSource(allMusicInfo);
             //for disposal
-            // tempImages = null;
-            CurrentPlaylist = Playlists.allSongs;
-
-            if (Settings1.Default.SortOrder != 0)
-            {
-                int order = Settings1.Default.SortOrder;
-                SortOrder = (SortOrders)order;
-                int sortColumn;
-                switch (order)
-                {
-                    case 0:
-                        //this is sort based on title
-                        sortColumn = 0;
-                        break;
-                    case 1:
-                        //this is sort based on artist
-                        sortColumn = 1;
-                        break;
-                    case 2:
-                        //this is sort based on album
-                        sortColumn = 2;
-                        break;
-
-                    default:
-                        //this is sort based on title
-                        sortColumn = 0;
-                        break;
-                }
-
-                var playlist = PlayList.GetCurrentPlaylist();
-                if (playlist != null && playlist.Length > 0 && playlist[0] != null)
-                {
-                    List<string[]?> tempList = new List<string[]?>();
-                    PlayList.SortPlaylist(CurrentPlaylist, sortColumn);
-                    playlist = PlayList.GetCurrentPlaylist();
-                    if (CurrentPlaylist == Playlists.allSongs) { allMusicInfo = (string[][])playlist.Clone(); }
-                    musicListView.Items.Clear();
-                    musicListView.LargeImageList.Images.Clear();
-                    Image[]? tempAllArts = AudioDataBase.GetMusicThumbnails(playlist);
-                    FormEditor.PopulateListView(ref musicListView, ref playlist, ref tempAllArts);
-                    listUpdated = true;
-                }
-            }
+            tempImages = null;
+            */
             GC.Collect();
         }
 
@@ -3230,15 +3078,15 @@ namespace Khi_Player
                         int sortColumn;
                         switch (order)
                         {
-                            case 1:
+                            case 0:
                                 //this is sort based on title
                                 sortColumn = 0;
                                 break;
-                            case 2:
+                            case 1:
                                 //this is sort based on artist
                                 sortColumn = 1;
                                 break;
-                            case 3:
+                            case 2:
                                 //this is sort based on album
                                 sortColumn = 2;
                                 break;
@@ -3892,7 +3740,6 @@ namespace Khi_Player
             if (musicListView.SelectedItems.Count > 0)
             {
 
-
             }
         }
 
@@ -4032,12 +3879,9 @@ namespace Khi_Player
                     songAlbumLabel.Text = "";
                     borderLabel.Visible = false;
                 }
-
                 //for disposal
                 listviewItemsToRemove.Clear();
                 listviewItemsToRemove = null;
-                //toBeRemovedItemsIndices.Clear();
-                //toBeRemovedItemsIndices = null;
             }
             
         }
@@ -4327,15 +4171,15 @@ namespace Khi_Player
 
                 switch (order)
                 {
-                    case 1:
+                    case 0:
                         //this is sort based on title
                         sortColumn = 0;
                         break;
-                    case 2:
+                    case 1:
                         //this is sort based on artist
                         sortColumn = 1;
                         break;
-                    case 3:
+                    case 2:
                         //this is sort based on album
                         sortColumn = 2;
                         break;
@@ -4416,7 +4260,6 @@ namespace Khi_Player
                         foundItemsArray = null;
                         foundItemsThumbnailsArray = null;
                     }
-
                     listUpdated = true;
                     CurrentPlaylist = Playlists.searchPlaylist;
 
@@ -4499,12 +4342,10 @@ namespace Khi_Player
             if (playlist != null && playlist.Length >0 &&playlist[0] != null)
             {
                 playlist = PlayList.SortPlaylist(CurrentPlaylist, 0);
-
                 musicListView.Items.Clear();
                 musicListView.LargeImageList.Images.Clear();
                 Image[]? tempAllArts = (Image[]?)AudioDataBase.GetMusicThumbnails(PlayList.GetCurrentPlaylist()).Clone();
                 FormEditor.PopulateListView(ref musicListView, ref playlist, ref tempAllArts);
-
                 listUpdated = true;
 
                 //for disposal
@@ -4619,7 +4460,6 @@ namespace Khi_Player
 
                 }
             });
-
             musicListView.EnsureVisible(index);
 
             //for disposal
