@@ -16,6 +16,8 @@ Edit:
 
 -Improved the Seek bar's functionality and improved it's performance and accuracy
 
+-Improved and Debugged codes related to playback
+
 -Some problems with the UI's resistibility were addressed 
 
 ---
